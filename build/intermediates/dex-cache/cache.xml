@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\alfre\AndroidStudioProjects\BestRead\app\libs\scribe-1.3.0.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="8a9f92023995a881e97622f82a2dd36d23dda06c">
+        <dex dex="C:\Users\alfre\AndroidStudioProjects\BestRead\app\build\intermediates\pre-dexed\debug\scribe-1.3.0-a9f73c2a9f577fc21b91f9ba7241d7b51a126cf3.jar" />
+    </item>
+    <item
+        jar="C:\Users\alfre\.gradle\caches\modules-2\files-2.1\com.github.scribejava\scribejava-apis\3.2.0\fe361e330f5a8f9c29ee31df2b4705d94c788e04\scribejava-apis-3.2.0.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="fe361e330f5a8f9c29ee31df2b4705d94c788e04">
+        <dex dex="C:\Users\alfre\AndroidStudioProjects\BestRead\app\build\intermediates\pre-dexed\debug\scribejava-apis-3.2.0-3470781b7bf68510633a06e068e98ad87c115d3a.jar" />
+    </item>
+    <item
+        jar="C:\Users\alfre\.gradle\caches\modules-2\files-2.1\com.github.scribejava\scribejava-core\3.2.0\8a48c3373a17c5f69144edbf7211cb3b2498ddd4\scribejava-core-3.2.0.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="8a48c3373a17c5f69144edbf7211cb3b2498ddd4">
+        <dex dex="C:\Users\alfre\AndroidStudioProjects\BestRead\app\build\intermediates\pre-dexed\debug\scribejava-core-3.2.0-938dd0ae989f97fae57535a282bdf30f90242258.jar" />
+    </item>
+    <item
+        jar="C:\Users\alfre\AndroidStudioProjects\BestRead\app\libs\commons-codec-1.6.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="b7f0fc8f61ecadeb3695f0b9464755eee44374d4">
+        <dex dex="C:\Users\alfre\AndroidStudioProjects\BestRead\app\build\intermediates\pre-dexed\debug\commons-codec-1.6-6c164269a3e5e11545027c817ff67ac73393ffed.jar" />
+    </item>
+
+</items>
