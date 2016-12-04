@@ -44,6 +44,7 @@ public class Update implements Serializable
 	private String mUpdateType;
 	private String mActionText;
 	private String mLink;
+	private String mBody;
 	private String mImageUrl;
 	private Date mUpdatedAt;
 	private Actor mActor = new Actor();
@@ -92,9 +93,9 @@ public class Update implements Serializable
 	{
 		final Update update = new Update();
 		final List<Update> updateList = new ArrayList<Update>();
-		final Element updatesElement = parentElement.getChild("updates"); 
+		final Element updatesElement = parentElement.getChild("updates");
 		final Element updateElement = updatesElement.getChild("update");
-		
+
 		updateElement.setEndElementListener(new EndElementListener()
 		{
 			@Override
@@ -112,20 +113,16 @@ public class Update implements Serializable
 	
 	private static void appendCommonListeners(final Element updateElement, final Update update, int depth)
 	{
-		updateElement.setStartElementListener(new StartElementListener()
-		{
+		updateElement.setStartElementListener(new StartElementListener() {
 			@Override
-			public void start(Attributes attributes)
-			{
+			public void start(Attributes attributes) {
 				update.setUpdateType(attributes.getValue("type"));
 			}
 		});
-		
-		updateElement.getChild("action_text").setEndTextElementListener(new EndTextElementListener()
-		{
+
+		updateElement.getChild("action_text").setEndTextElementListener(new EndTextElementListener() {
 			@Override
-			public void end(String body)
-			{
+			public void end(String body) {
 				update.setActionText(body);
 			}
 		});
@@ -148,11 +145,9 @@ public class Update implements Serializable
 			}
 		});
 		
-		updateElement.getChild("updated_at").setEndTextElementListener(new EndTextElementListener()
-		{
+		updateElement.getChild("updated_at").setEndTextElementListener(new EndTextElementListener() {
 			@Override
-			public void end(String body)
-			{
+			public void end(String body) {
 				SimpleDateFormat sdf = new SimpleDateFormat("E, dd MMM yyyy hh:mm:ss Z");
 				Date d = new Date();
 				try {
@@ -163,10 +158,18 @@ public class Update implements Serializable
 				update.setUpdatedAt(d);
 			}
 		});
-		
+
+
 		update.setActor(Actor.appendListener(updateElement, depth + 1));
-		update.setAction(Action.appendListener(updateElement, depth + 1));
+		//update.setAction(Action.appendListener(updateElement, depth + 1));
 		update.setUpdateObject(UpdateObject.appendListener(updateElement, depth + 1));
+
+		updateElement.getChild("body").setEndTextElementListener(new EndTextElementListener() {
+			@Override
+			public void end(String body) {
+				update.setBody(body);
+			}
+		});
 	}
 
 	public String getLink()
@@ -253,5 +256,12 @@ public class Update implements Serializable
 	public String toString() {
 		return "Update[updateType=" + mUpdateType + ", actionText=" + mActionText + ", link=" + mLink + ", imageUrl=" + mImageUrl + ", updatedAt=" + mUpdatedAt + "]";
 	}
-	
+
+	public String getBody() {
+		return mBody;
+	}
+
+	public void setBody(String mBody) {
+		this.mBody = mBody;
+	}
 }

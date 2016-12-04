@@ -2,24 +2,15 @@ package com.bestread.app.bestread;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-
-
-import com.goodreads.api.v1.*;
-
-import org.scribe.builder.ServiceBuilder;
-import org.scribe.oauth.OAuthService;
-import org.scribe.model.Token;
 
 public class MainActivity extends AppCompatActivity {
     SessionManager session;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,14 +49,21 @@ public class MainActivity extends AppCompatActivity {
 //        Log.d("URL",authUrl);
 
         String authUrl = session.Authorization();
-        Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse(authUrl));
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(authUrl));
         startActivity(intent);
     }
+
     public void login(View v) throws Exception {
         session.initAccessToken();
-        //Toast.makeText(MainActivity.this, "User Name", Toast.LENGTH_LONG).show();
-
+        Intent feed = new Intent(this, UserFeed.class);
+        startActivity(feed);
     }
 
+    public void goToFeed(View view) {
+        //Toast.makeText(MainActivity.this, "User Name", Toast.LENGTH_LONG).show();
+        Intent feed = new Intent(this, UserFeed.class);
+        //feed.putExtra("extra","Passed string in extra");
+        startActivity(feed);
+    }
 }
 

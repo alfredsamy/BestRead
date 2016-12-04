@@ -56,8 +56,8 @@ public class Request implements Serializable
 	public static Request appendListener(Element parentElement)
 	{
 		final Request request = new Request();
-		final Element requestElement = parentElement.getChild("request");
-		
+		final Element requestElement = parentElement.getChild("Request");
+
 		requestElement.getChild("authentication").setEndTextElementListener(new EndTextElementListener()
 		{
 			@Override
@@ -76,7 +76,7 @@ public class Request implements Serializable
 			}
 		});
 		
-		requestElement.getChild("request").setEndTextElementListener(new EndTextElementListener()
+		requestElement.getChild("method").setEndTextElementListener(new EndTextElementListener()
 		{
 			@Override
 			public void end(String body)

@@ -45,15 +45,15 @@ public class GoodreadsService
 	private static final String TAG = "GoodreadsService";
 	//private static final String CALLBACK = "oauth://goodreads";
 	private static final String CALLBACK ="http://www.dummy.com";
-	
+
 	private static String sApiKey;
 	private static String sApiSecret;
-	
+
 	private static Token sAccessToken;
-	
+
 	private static OAuthService sService;
 	private static boolean sAuthenticated = false;
-	
+
 	/**
 	 * OAuth Flow
 	 */
@@ -67,7 +67,7 @@ public class GoodreadsService
 					   .callback(CALLBACK)
 		               .build();
 	}
-	
+
 	/**
 	 * Returns a request token
 	 */
@@ -77,23 +77,24 @@ public class GoodreadsService
 		}
 		return sService.getRequestToken();
 	}
-	
+
 	public static String getAuthorizationUrl(Token requestToken) {
 		return sService.getAuthorizationUrl(requestToken);
 	}
-	
+
 	public static Token getAccessToken(String verifier, Token requestToken) {
 		Verifier v = new Verifier(verifier);
 		sAccessToken = sService.getAccessToken(requestToken, v);
+        sAuthenticated = true;
 		return sAccessToken;
 	}
 
 	public static GoodreadsResponse parse(InputStream inputStream) throws IOException, SAXException
 	{
 		final GoodreadsResponse response = new GoodreadsResponse();
-		
+
 		RootElement root = new RootElement("GoodreadsResponse");
-		
+
 		response.setBook(Book.appendListener(root, 0));
 		response.setRequest(Request.appendListener(root));
 		response.setUser(User.appendListener(root, 0));
@@ -108,7 +109,6 @@ public class GoodreadsService
 		response.setAuthor(Author.appendListener(root, 0));
 		response.setComments(Comments.appendListener(root, 0));
 		response.setEvents(Event.appendArrayListener(root, 0));
-		
 		try
 		{
 			Xml.parse(inputStream, Xml.Encoding.UTF_8, root.getContentHandler());
@@ -119,13 +119,13 @@ public class GoodreadsService
 		}
 		return response;
 	}
-	
+
 	public static User getAuthorizedUser() throws Exception
 	{
 		OAuthRequest request = new OAuthRequest(Verb.GET, "http://www.goodreads.com/api/auth_user");
 		sService.signRequest(sAccessToken, request);
 		Response response = request.send();
-		
+		//Log.d("response: ",response.getBody());
 		GoodreadsResponse responseData = GoodreadsService.parse(response.getStream());
 		return responseData.getUser();
 	}
@@ -134,7 +134,7 @@ public class GoodreadsService
 	{
 		return getBooksOnShelf(shelfName, userId, 1);
 	}
-	
+
 	public static Reviews getBooksOnShelf(String shelfName, String userId, int page) throws Exception
 	{
 		Uri.Builder builder = new Uri.Builder();
@@ -157,12 +157,12 @@ public class GoodreadsService
 		GoodreadsResponse responseData = GoodreadsService.parse(response.getStream());
 		return responseData.getReviews();
 	}
- 	
+
  	public static Review getReview(String reviewId) throws Exception
  	{
  		return getReview(reviewId, 1);
  	}
- 	
+
  	public static Review getReview(String reviewId, int page) throws Exception
  	{
  		Uri.Builder builder = new Uri.Builder();
@@ -177,12 +177,12 @@ public class GoodreadsService
  			sService.signRequest(sAccessToken, getReviewRequest);
  		}
  		Response response = getReviewRequest.send();
- 		
+
  		GoodreadsResponse responseData = GoodreadsService.parse(response.getStream());
- 		
+
  		return responseData.getReview();
  	}
- 	
+
 	/**
 	 * Returns a list of shelves for a given user
 	 */
@@ -203,10 +203,10 @@ public class GoodreadsService
 		}
 		Response response = getShelvesRequest.send();
 		GoodreadsResponse responseData = GoodreadsService.parse(response.getStream());
-		
+
 		return responseData.getShelves().getUserShelves();
 	}
-	
+
 	public static List<Update> getFriendsUpdates() throws Exception
 	{
 		Uri.Builder builder = new Uri.Builder();
@@ -219,9 +219,8 @@ public class GoodreadsService
 		{
 			sService.signRequest(sAccessToken, getUpdatesRequest);
 		}
-		
 		Response response = getUpdatesRequest.send();
-		
+		//Log.d("Friend up response",response.getBody());
 		GoodreadsResponse updatesResponse = GoodreadsService.parse(response.getStream());
 		return updatesResponse.getUpdates();
 	}
@@ -707,17 +706,17 @@ public class GoodreadsService
 	{
 		return sAuthenticated;
 	}
-	
+
 	public static void setAccessToken(Token accessToken) {
 		sAccessToken = accessToken;
 		setAuthenticated(true);
 	}
-	
+
 	public static void setAccessToken(String token, String tokenSecret)
 	{
 		setAccessToken(new Token(token, tokenSecret));
 	}
-	
+
 	public static void clearAuthentication()
 	{
 		setAuthenticated(false);
