@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     SessionManager session;
@@ -49,8 +51,13 @@ public class MainActivity extends AppCompatActivity {
 //        Log.d("URL",authUrl);
 
         String authUrl = session.Authorization();
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(authUrl));
-        startActivity(intent);
+        if(!authUrl.isEmpty()){
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(authUrl));
+            startActivity(intent);
+        }else{
+            Toast toast = Toast.makeText(getApplicationContext(), "Couldn't Authorize Maybe No Internet ?", Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     public void login(View v) throws Exception {
