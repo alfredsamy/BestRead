@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.StrictMode;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.goodreads.api.v1.GoodreadsService;
 import com.goodreads.api.v1.User;
@@ -86,6 +87,15 @@ public class SessionManager {
         }
         g.setAccessToken(token, tokenSecrer);
         return true;
+    }
+
+    public boolean postStatus(String comment)  {
+        try {
+            return g.postStatusUpdate(comment);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 

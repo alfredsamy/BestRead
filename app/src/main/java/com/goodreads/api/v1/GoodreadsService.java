@@ -40,6 +40,8 @@ import android.sax.RootElement;
 import android.util.Xml;
 import android.util.Log;
 
+import com.github.scribejava.core.model.HttpClient;
+
 public class GoodreadsService {
     private static final String TAG = "GoodreadsService";
     //private static final String CALLBACK = "oauth://goodreads";
@@ -212,7 +214,8 @@ public class GoodreadsService {
         GoodreadsResponse updatesResponse = GoodreadsService.parse(response.getStream());
         return updatesResponse.getUpdates();
     }
-// 	
+
+    //
 // 	public static Followers getFollowers(String userId) throws Exception 
 // 	{
 // 		return getFollowers(userId, 1);
@@ -404,23 +407,24 @@ public class GoodreadsService {
 // 		}
 // 	}
 // 	
-// 	public static void postStatusUpdate(String comment)	throws Exception
-// 	{
-// 		HttpClient httpClient = new DefaultHttpClient();
-// 		HttpPost post = new HttpPost("http://www.goodreads.com/user_status.xml");
-// 		
-// 		List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-// 		parameters.add(new BasicNameValuePair("user_status[body]", comment));
-// 		post.setEntity(new UrlEncodedFormEntity(parameters));
-// 		sService.signRequest(sAccessToken, post);
-// 		
-// 		HttpResponse response = httpClient.execute(post);
-// 		if (response.getStatusLine().getStatusCode() != 201)
-// 		{
-// 			throw new Exception(response.getStatusLine().toString());
-// 		}
-// 	}
-// 	
+    public static boolean postStatusUpdate(String comment) throws Exception {
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("http");
+        builder.authority("www.goodreads.com");
+        builder.path("user_status.xml");
+        builder.appendQueryParameter("user_status[body]", comment);
+
+        OAuthRequest getReviewRequest = new OAuthRequest(Verb.POST, builder.build().toString());
+        if (isAuthenticated()) {
+            sService.signRequest(sAccessToken, getReviewRequest);
+        }
+        Response response = getReviewRequest.send();
+        if(response.isSuccessful()){
+            return true;
+        }
+        return false;
+    }
+
 // 	public static void postStatusUpdate(String book, String page, String comment) 
 // 		throws 
 // 			Exception

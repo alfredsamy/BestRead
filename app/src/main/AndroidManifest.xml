@@ -21,7 +21,12 @@
         </activity>
         <activity
             android:name=".UserFeed"
-            android:label="@string/title_activity_userfeeds" >
+            android:label="News Feed" >
+        </activity>
+        <activity
+            android:name=".WriteStatus"
+            android:label="Write status"
+            android:parentActivityName=".UserFeed">
         </activity>
     </application>
 

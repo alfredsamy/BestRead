@@ -2,6 +2,7 @@ package com.bestread.app.bestread;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -59,7 +60,9 @@ public class UserFeed extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.writePost) {
+            Intent writeStatus = new Intent(this, WriteStatus.class);
+            startActivity(writeStatus);
             return true;
         }
 
