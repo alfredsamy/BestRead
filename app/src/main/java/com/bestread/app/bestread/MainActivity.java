@@ -61,9 +61,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void login(View v) throws Exception {
-        session.initAccessToken();
-        Intent feed = new Intent(this, UserFeed.class);
-        startActivity(feed);
+        try {
+            session.initAccessToken();
+            Intent feed = new Intent(this, UserFeed.class);
+            startActivity(feed);
+        }catch (Exception e){
+            Toast toast = Toast.makeText(getApplicationContext(), "Please Authorize First", Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     public void goToFeed(View view) {

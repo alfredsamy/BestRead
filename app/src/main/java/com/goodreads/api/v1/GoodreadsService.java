@@ -40,190 +40,178 @@ import android.sax.RootElement;
 import android.util.Xml;
 import android.util.Log;
 
-public class GoodreadsService
-{
-	private static final String TAG = "GoodreadsService";
-	//private static final String CALLBACK = "oauth://goodreads";
-	private static final String CALLBACK ="http://www.dummy.com";
+public class GoodreadsService {
+    private static final String TAG = "GoodreadsService";
+    //private static final String CALLBACK = "oauth://goodreads";
+    private static final String CALLBACK = "http://www.dummy.com";
 
-	private static String sApiKey;
-	private static String sApiSecret;
+    private static String sApiKey;
+    private static String sApiSecret;
 
-	private static Token sAccessToken;
+    private static Token sAccessToken;
 
-	private static OAuthService sService;
-	private static boolean sAuthenticated = false;
+    private static OAuthService sService;
+    private static boolean sAuthenticated = false;
 
-	/**
-	 * OAuth Flow
-	 */
-	public static void init(String apiKey, String apiSecret) {
-		sApiKey = apiKey;
-		sApiSecret = apiSecret;
-		sService = new ServiceBuilder()
-		               .provider(GoodreadsApi.class)
-		               .apiKey(apiKey)
-		               .apiSecret(apiSecret)
-					   .callback(CALLBACK)
-		               .build();
-	}
+    /**
+     * OAuth Flow
+     */
+    public static void init(String apiKey, String apiSecret) {
+        sApiKey = apiKey;
+        sApiSecret = apiSecret;
+        sService = new ServiceBuilder()
+                .provider(GoodreadsApi.class)
+                .apiKey(apiKey)
+                .apiSecret(apiSecret)
+                .callback(CALLBACK)
+                .build();
+    }
 
-	/**
-	 * Returns a request token
-	 */
-	public static Token getRequestToken() {
-		if (sService == null) {
-			throw new IllegalStateException("GoodreadsService hasn't been initialized.");
-		}
-		return sService.getRequestToken();
-	}
+    /**
+     * Returns a request token
+     */
+    public static Token getRequestToken() {
+        if (sService == null) {
+            throw new IllegalStateException("GoodreadsService hasn't been initialized.");
+        }
+        return sService.getRequestToken();
+    }
 
-	public static String getAuthorizationUrl(Token requestToken) {
-		return sService.getAuthorizationUrl(requestToken);
-	}
+    public static String getAuthorizationUrl(Token requestToken) {
+        return sService.getAuthorizationUrl(requestToken);
+    }
 
-	public static Token getAccessToken(String verifier, Token requestToken) {
-		Verifier v = new Verifier(verifier);
-		sAccessToken = sService.getAccessToken(requestToken, v);
+    public static Token getAccessToken(String verifier, Token requestToken) {
+        Verifier v = new Verifier(verifier);
+
+        if (requestToken == null)
+            return null;
+
+        sAccessToken = sService.getAccessToken(requestToken, v);
         sAuthenticated = true;
-		return sAccessToken;
-	}
+        return sAccessToken;
+    }
 
-	public static GoodreadsResponse parse(InputStream inputStream) throws IOException, SAXException
-	{
-		final GoodreadsResponse response = new GoodreadsResponse();
+    public static GoodreadsResponse parse(InputStream inputStream) throws IOException, SAXException {
+        final GoodreadsResponse response = new GoodreadsResponse();
 
-		RootElement root = new RootElement("GoodreadsResponse");
+        RootElement root = new RootElement("GoodreadsResponse");
 
-		response.setBook(Book.appendListener(root, 0));
-		response.setRequest(Request.appendListener(root));
-		response.setUser(User.appendListener(root, 0));
-		response.setShelves(Shelves.appendListener(root, 0));
-		response.setReviews(Reviews.appendListener(root, 0));
-		response.setSearch(Search.appendListener(root, 0));
-		response.setFollowers(Followers.appendListener(root, 0));
-		response.setFriends(Friends.appendListener(root, 0));
-		response.setFollowing(Following.appendListener(root, 0));
-		response.setUpdates(Update.appendArrayListener(root, 0));
-		response.setReview(Review.appendListener(root, 0));
-		response.setAuthor(Author.appendListener(root, 0));
-		response.setComments(Comments.appendListener(root, 0));
-		response.setEvents(Event.appendArrayListener(root, 0));
-		try
-		{
-			Xml.parse(inputStream, Xml.Encoding.UTF_8, root.getContentHandler());
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		return response;
-	}
+        response.setBook(Book.appendListener(root, 0));
+        response.setRequest(Request.appendListener(root));
+        response.setUser(User.appendListener(root, 0));
+        response.setShelves(Shelves.appendListener(root, 0));
+        response.setReviews(Reviews.appendListener(root, 0));
+        response.setSearch(Search.appendListener(root, 0));
+        response.setFollowers(Followers.appendListener(root, 0));
+        response.setFriends(Friends.appendListener(root, 0));
+        response.setFollowing(Following.appendListener(root, 0));
+        response.setUpdates(Update.appendArrayListener(root, 0));
+        response.setReview(Review.appendListener(root, 0));
+        response.setAuthor(Author.appendListener(root, 0));
+        response.setComments(Comments.appendListener(root, 0));
+        response.setEvents(Event.appendArrayListener(root, 0));
+        try {
+            Xml.parse(inputStream, Xml.Encoding.UTF_8, root.getContentHandler());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
 
-	public static User getAuthorizedUser() throws Exception
-	{
-		OAuthRequest request = new OAuthRequest(Verb.GET, "http://www.goodreads.com/api/auth_user");
-		sService.signRequest(sAccessToken, request);
-		Response response = request.send();
-		//Log.d("response: ",response.getBody());
-		GoodreadsResponse responseData = GoodreadsService.parse(response.getStream());
-		return responseData.getUser();
-	}
+    public static User getAuthorizedUser() throws Exception {
+        OAuthRequest request = new OAuthRequest(Verb.GET, "http://www.goodreads.com/api/auth_user");
+        sService.signRequest(sAccessToken, request);
+        Response response = request.send();
+        //Log.d("response: ",response.getBody());
+        GoodreadsResponse responseData = GoodreadsService.parse(response.getStream());
+        return responseData.getUser();
+    }
 
-	public static Reviews getBooksOnShelf(String shelfName, String userId) throws Exception
-	{
-		return getBooksOnShelf(shelfName, userId, 1);
-	}
+    public static Reviews getBooksOnShelf(String shelfName, String userId) throws Exception {
+        return getBooksOnShelf(shelfName, userId, 1);
+    }
 
-	public static Reviews getBooksOnShelf(String shelfName, String userId, int page) throws Exception
-	{
-		Uri.Builder builder = new Uri.Builder();
-		builder.scheme("http");
-		builder.authority("www.goodreads.com");
-		builder.path("review/list/" + userId + ".xml");
-		builder.appendQueryParameter("key", sApiKey);
-		builder.appendQueryParameter("shelf", shelfName);
-		builder.appendQueryParameter("v", "2");
-		builder.appendQueryParameter("sort", "date_updated");
-		builder.appendQueryParameter("order", "d");
-		builder.appendQueryParameter("page", Integer.toString(page));
-		OAuthRequest getBooksOnShelfRequest = new OAuthRequest(Verb.GET, builder.build().toString());
-		if (isAuthenticated())
-		{
-			sService.signRequest(sAccessToken, getBooksOnShelfRequest);
-		}
-		Response response = getBooksOnShelfRequest.send();
+    public static Reviews getBooksOnShelf(String shelfName, String userId, int page) throws Exception {
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("http");
+        builder.authority("www.goodreads.com");
+        builder.path("review/list/" + userId + ".xml");
+        builder.appendQueryParameter("key", sApiKey);
+        builder.appendQueryParameter("shelf", shelfName);
+        builder.appendQueryParameter("v", "2");
+        builder.appendQueryParameter("sort", "date_updated");
+        builder.appendQueryParameter("order", "d");
+        builder.appendQueryParameter("page", Integer.toString(page));
+        OAuthRequest getBooksOnShelfRequest = new OAuthRequest(Verb.GET, builder.build().toString());
+        if (isAuthenticated()) {
+            sService.signRequest(sAccessToken, getBooksOnShelfRequest);
+        }
+        Response response = getBooksOnShelfRequest.send();
 
-		GoodreadsResponse responseData = GoodreadsService.parse(response.getStream());
-		return responseData.getReviews();
-	}
+        GoodreadsResponse responseData = GoodreadsService.parse(response.getStream());
+        return responseData.getReviews();
+    }
 
- 	public static Review getReview(String reviewId) throws Exception
- 	{
- 		return getReview(reviewId, 1);
- 	}
+    public static Review getReview(String reviewId) throws Exception {
+        return getReview(reviewId, 1);
+    }
 
- 	public static Review getReview(String reviewId, int page) throws Exception
- 	{
- 		Uri.Builder builder = new Uri.Builder();
- 		builder.scheme("http");
- 		builder.authority("www.goodreads.com");
- 		builder.path("review/show/" + reviewId + ".xml");
- 		builder.appendQueryParameter("key", sApiKey);
- 		builder.appendQueryParameter("page", Integer.toString(page));
- 		OAuthRequest getReviewRequest = new OAuthRequest(Verb.GET, builder.build().toString());
- 		if (isAuthenticated())
- 		{
- 			sService.signRequest(sAccessToken, getReviewRequest);
- 		}
- 		Response response = getReviewRequest.send();
+    public static Review getReview(String reviewId, int page) throws Exception {
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("http");
+        builder.authority("www.goodreads.com");
+        builder.path("review/show/" + reviewId + ".xml");
+        builder.appendQueryParameter("key", sApiKey);
+        builder.appendQueryParameter("page", Integer.toString(page));
+        OAuthRequest getReviewRequest = new OAuthRequest(Verb.GET, builder.build().toString());
+        if (isAuthenticated()) {
+            sService.signRequest(sAccessToken, getReviewRequest);
+        }
+        Response response = getReviewRequest.send();
 
- 		GoodreadsResponse responseData = GoodreadsService.parse(response.getStream());
+        GoodreadsResponse responseData = GoodreadsService.parse(response.getStream());
 
- 		return responseData.getReview();
- 	}
+        return responseData.getReview();
+    }
 
-	/**
-	 * Returns a list of shelves for a given user
-	 */
-	public static List<UserShelf> getShelvesForUser(String userId) throws Exception
-	{
-		Uri.Builder builder = new Uri.Builder();
-		builder.scheme("http");
-		builder.authority("www.goodreads.com");
-		builder.path("shelf/list");
-		builder.appendQueryParameter("format", "xml");
-		builder.appendQueryParameter("user_id", userId);
-		builder.appendQueryParameter("key", sApiKey);
+    /**
+     * Returns a list of shelves for a given user
+     */
+    public static List<UserShelf> getShelvesForUser(String userId) throws Exception {
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("http");
+        builder.authority("www.goodreads.com");
+        builder.path("shelf/list");
+        builder.appendQueryParameter("format", "xml");
+        builder.appendQueryParameter("user_id", userId);
+        builder.appendQueryParameter("key", sApiKey);
 
-		OAuthRequest getShelvesRequest = new OAuthRequest(Verb.GET, builder.build().toString());
-		if (isAuthenticated())
-		{
-			sService.signRequest(sAccessToken, getShelvesRequest);
-		}
-		Response response = getShelvesRequest.send();
-		GoodreadsResponse responseData = GoodreadsService.parse(response.getStream());
+        OAuthRequest getShelvesRequest = new OAuthRequest(Verb.GET, builder.build().toString());
+        if (isAuthenticated()) {
+            sService.signRequest(sAccessToken, getShelvesRequest);
+        }
+        Response response = getShelvesRequest.send();
+        GoodreadsResponse responseData = GoodreadsService.parse(response.getStream());
 
-		return responseData.getShelves().getUserShelves();
-	}
+        return responseData.getShelves().getUserShelves();
+    }
 
-	public static List<Update> getFriendsUpdates() throws Exception
-	{
-		Uri.Builder builder = new Uri.Builder();
-		builder.scheme("http");
-		builder.authority("www.goodreads.com");
-		builder.path("updates/friends.xml");
+    public static List<Update> getFriendsUpdates() throws Exception {
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("http");
+        builder.authority("www.goodreads.com");
+        builder.path("updates/friends.xml");
 
-		OAuthRequest getUpdatesRequest = new OAuthRequest(Verb.GET, builder.build().toString());
-		if (isAuthenticated())
-		{
-			sService.signRequest(sAccessToken, getUpdatesRequest);
-		}
-		Response response = getUpdatesRequest.send();
-		//Log.d("Friend up response",response.getBody());
-		GoodreadsResponse updatesResponse = GoodreadsService.parse(response.getStream());
-		return updatesResponse.getUpdates();
-	}
+        OAuthRequest getUpdatesRequest = new OAuthRequest(Verb.GET, builder.build().toString());
+        if (isAuthenticated()) {
+            sService.signRequest(sAccessToken, getUpdatesRequest);
+        }
+        Response response = getUpdatesRequest.send();
+        //Log.d("Friend up response",response.getBody());
+        GoodreadsResponse updatesResponse = GoodreadsService.parse(response.getStream());
+        return updatesResponse.getUpdates();
+    }
 // 	
 // 	public static Followers getFollowers(String userId) throws Exception 
 // 	{
@@ -697,28 +685,24 @@ public class GoodreadsService
 // 		return responseData.getEvents();
 // 	}
 
-	private static void setAuthenticated(boolean authenticated)
-	{
-		GoodreadsService.sAuthenticated = authenticated;
-	}
+    private static void setAuthenticated(boolean authenticated) {
+        GoodreadsService.sAuthenticated = authenticated;
+    }
 
-	public static boolean isAuthenticated()
-	{
-		return sAuthenticated;
-	}
+    public static boolean isAuthenticated() {
+        return sAuthenticated;
+    }
 
-	public static void setAccessToken(Token accessToken) {
-		sAccessToken = accessToken;
-		setAuthenticated(true);
-	}
+    public static void setAccessToken(Token accessToken) {
+        sAccessToken = accessToken;
+        setAuthenticated(true);
+    }
 
-	public static void setAccessToken(String token, String tokenSecret)
-	{
-		setAccessToken(new Token(token, tokenSecret));
-	}
+    public static void setAccessToken(String token, String tokenSecret) {
+        setAccessToken(new Token(token, tokenSecret));
+    }
 
-	public static void clearAuthentication()
-	{
-		setAuthenticated(false);
-	}
+    public static void clearAuthentication() {
+        setAuthenticated(false);
+    }
 }

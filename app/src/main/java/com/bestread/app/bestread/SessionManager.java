@@ -46,12 +46,16 @@ public class SessionManager {
         }
         return authUrl;
     }
-    public void initAccessToken() {
+    public void initAccessToken() throws Exception{
         //Token requestToken = g.getRequestToken();
         //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         //StrictMode.setThreadPolicy(policy);
 
         Token accessToken = g.getAccessToken("verifier you got from the user/callback", requestToken);
+
+        if(accessToken == null)
+            throw new Exception("User Not Authorized");
+
         Log.d("Token", accessToken.getToken());
         User u = null;
         try {
