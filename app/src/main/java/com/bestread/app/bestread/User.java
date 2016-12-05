@@ -45,10 +45,15 @@ public class User extends AppCompatActivity {
             ImageView profilePic = (ImageView) findViewById(R.id.userpic);
             profilePic.setImageBitmap(pic);
 
-            // get username
+            // get and set username in view
             TextView userNameView = (TextView) findViewById(R.id.username);
             Log.d("DEBUG", "Got Name:" + user.getName());
             userNameView.setText(user.getName());
+
+            // get and set about in view
+            TextView userAboutView = (TextView) findViewById(R.id.userabout);
+            Log.d("DEBUG", "Got about:" + user.getAbout());
+            userAboutView.setText(user.getAbout());
 
         } catch (Exception e) {
             Toast toast = Toast.makeText(getApplicationContext(), "Error Loading Profile", Toast.LENGTH_SHORT);
