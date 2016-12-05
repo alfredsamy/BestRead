@@ -28,8 +28,10 @@ public class MainActivity extends AppCompatActivity {
         session = new SessionManager();
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-        if(session.setAccessToken(sharedpreferences))//Already Authenticate Go to News Feed
+        if(session.setAccessToken(sharedpreferences)) {//Already Authenticate Go to News Feed
             goToFeed();
+            finish();
+        }
     }
 
     @Override
@@ -79,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToFeed() {
+        Toast toast = Toast.makeText(getApplicationContext(), "Loading...", Toast.LENGTH_LONG);
+        toast.show();
         Intent feed = new Intent(this, UserFeed.class);
         startActivity(feed);
     }
