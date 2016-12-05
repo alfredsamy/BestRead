@@ -51,6 +51,9 @@ public class SessionManager {
         //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         //StrictMode.setThreadPolicy(policy);
 
+        if(g.isAuthenticated())
+            return;
+
         Token accessToken = g.getAccessToken("verifier you got from the user/callback", requestToken);
 
         if(accessToken == null)
