@@ -55,6 +55,18 @@ public class GoodreadsService {
     private static OAuthService sService;
     private static boolean sAuthenticated = false;
 
+    public static String getSAPIKey(){
+        return sApiKey;
+    }
+
+    public static OAuthService getsService(){
+        return sService;
+    }
+
+    public static Token getsAccessToken(){
+        return sAccessToken;
+    }
+
     /**
      * OAuth Flow
      */

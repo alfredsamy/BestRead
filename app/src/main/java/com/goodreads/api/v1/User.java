@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.scribe.model.OAuthRequest;
+import org.scribe.model.Response;
+import org.scribe.model.Verb;
 import org.xml.sax.Attributes;
 
 import android.net.Uri;
@@ -11,6 +14,7 @@ import android.sax.Element;
 import android.sax.EndElementListener;
 import android.sax.EndTextElementListener;
 import android.sax.StartElementListener;
+import android.util.Log;
 
 public class User implements Serializable
 {
@@ -471,5 +475,30 @@ public class User implements Serializable
 		mFavoriteAuthors.clear();
 		mShelves.clear();
 		mUpdates.clear();
+	}
+
+	public void fillInfo(){
+		Uri.Builder builder = new Uri.Builder();
+		builder.scheme("http");
+		builder.authority("www.goodreads.com");
+		builder.path("user/show/" + getId() + ".xml");
+		builder.appendQueryParameter("key", GoodreadsService.getSAPIKey());
+
+		OAuthRequest getUserInfoRequest = new OAuthRequest(Verb.GET, builder.build().toString());
+		GoodreadsService.getsService().signRequest(GoodreadsService.getsAccessToken(), getUserInfoRequest);
+		Response response = getUserInfoRequest.send();
+
+		try{
+			GoodreadsResponse responseData = GoodreadsService.parse(response.getStream());
+			User u = responseData.getUser();
+
+			mName = u.getName();
+			mImageUrl = u.getImageUrl();
+			mAbout = u.getAbout();
+
+		}catch (Exception e){
+			Log.d("DEBUG", "Can't Fill userdata");
+			//e.printStackTrace();
+		}
 	}
 }
