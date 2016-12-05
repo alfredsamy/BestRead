@@ -1,37 +1,35 @@
 package com.bestread.app.bestread;
 
-import android.content.Intent;
-import android.net.Uri;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.StrictMode;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
 import com.goodreads.api.v1.GoodreadsService;
 import com.goodreads.api.v1.User;
 
 import org.scribe.model.Token;
 
-/**
- * Created by alfre on 12/4/2016.
- */
 public class SessionManager {
 
     static GoodreadsService g;
-    static Token requestToken;
+    private static Token requestToken;
+    private static Token accessToken;
+    private static User currentUser;
 
-    public SessionManager(){
-        if(g==null) {
-            String key = "6wT9nOMhwRlK7Ee0D8TUzA";
-            String secret = "2Lu6STmOXq9fb7dse1ZRCinkY4uglIVJ6235cOOQd0";
+    private String key = "6wT9nOMhwRlK7Ee0D8TUzA";
+    private String secret = "2Lu6STmOXq9fb7dse1ZRCinkY4uglIVJ6235cOOQd0";
+
+
+    public SessionManager() {
+        if (g == null) {
             g = new GoodreadsService();
             g.init(key, secret);
         }
     }
-    public String Authorization(){
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        //Toast.makeText(MainActivity.this, "YOUR MESSAGE", Toast.LENGTH_LONG).show();
+
+    public String Authorization() {
+
         String authUrl = "";
         try {
             requestToken = g.getRequestToken();
@@ -39,35 +37,56 @@ public class SessionManager {
             authUrl = g.getAuthorizationUrl(requestToken);
             Log.d("URL", authUrl);
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             Log.d("ERROR", "Unable to login");
         }
         return authUrl;
     }
-    public void initAccessToken() throws Exception{
-        //Token requestToken = g.getRequestToken();
-        //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        //StrictMode.setThreadPolicy(policy);
 
-        if(g.isAuthenticated())
+    public void initAccessToken() throws Exception {
+
+        if (g.isAuthenticated())
             return;
 
-        Token accessToken = g.getAccessToken("verifier you got from the user/callback", requestToken);
-
-        if(accessToken == null)
+        accessToken = g.getAccessToken("verifier you got from the user/callback", requestToken);
+        if (accessToken == null)
             throw new Exception("User Not Authorized");
 
         Log.d("Token", accessToken.getToken());
-        User u = null;
         try {
-            u = g.getAuthorizedUser();
+            currentUser = g.getAuthorizedUser();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.d("User",u.getName());
-        Log.d("Access Token",accessToken.getToken());
+        Log.d("User", currentUser.getName());
+        Log.d("Access Token", accessToken.getToken());
     }
+    public User getCurrentUser(){
+        return currentUser;
+    }
+
+    public void saveAccessToken(SharedPreferences pref) {
+        //g.setAccessToken(token, tokenSecrer);
+        String token = accessToken.getToken();
+        String tokenSecrer = accessToken.getSecret();
+
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("token", token);
+        editor.putString("tokenSecrer", tokenSecrer);
+        editor.commit();
+
+    }
+
+    public boolean setAccessToken(SharedPreferences pref){
+        String token = pref.getString("token", null);
+        String tokenSecrer = pref.getString("tokenSecrer", null);
+        if (token == null) {
+            return false;
+        }
+        g.setAccessToken(token, tokenSecrer);
+        return true;
+    }
+
 
 }
