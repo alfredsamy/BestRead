@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.bestread.app.bestread.UserFeed">
     <item
+        android:id="@+id/profile_view"
+        android:orderInCategory="100"
+        android:title="Profile View" />
+
+    <item
         android:id="@+id/writePost"
         android:orderInCategory="100"
         android:title="Write Status"

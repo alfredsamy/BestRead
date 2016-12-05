@@ -64,6 +64,10 @@ public class UserFeed extends AppCompatActivity {
             Intent writeStatus = new Intent(this, WriteStatus.class);
             startActivity(writeStatus);
             return true;
+        }else if(id == R.id.profile_view){
+            Intent profile_view = new Intent(this, User.class);
+            startActivity(profile_view);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

@@ -2,39 +2,11 @@
 <items version="2" >
 
     <item
-        jar="/home/robert/Documents/android-workspace/BestRead/app/libs/commons-codec-1.6.jar"
-        jumboMode="false"
-        revision="23.0.0"
-        sha1="b7f0fc8f61ecadeb3695f0b9464755eee44374d4">
-        <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/debug/commons-codec-1.6-3a93ebd94bc8612658819951b4e583868ce995ef.jar" />
-    </item>
-    <item
-        jar="/home/robert/.gradle/caches/modules-2/files-2.1/com.github.scribejava/scribejava-apis/3.2.0/fe361e330f5a8f9c29ee31df2b4705d94c788e04/scribejava-apis-3.2.0.jar"
-        jumboMode="false"
-        revision="23.0.0"
-        sha1="fe361e330f5a8f9c29ee31df2b4705d94c788e04">
-        <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/debug/scribejava-apis-3.2.0-c087bae01bbe370e1e4cf80180fe79684663085f.jar" />
-    </item>
-    <item
         jar="/home/robert/Documents/android-workspace/BestRead/app/libs/scribe-1.3.0.jar"
         jumboMode="false"
         revision="23.0.0"
         sha1="8a9f92023995a881e97622f82a2dd36d23dda06c">
         <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/debug/scribe-1.3.0-fd176f51b8121e4a5a67d198f7e7d8ac812419e4.jar" />
-    </item>
-    <item
-        jar="/home/robert/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.0/support-annotations-23.0.0.jar"
-        jumboMode="false"
-        revision="23.0.0"
-        sha1="990e7f98a7bad86a40b1f0bcfeb039023afd0839">
-        <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/debug/support-annotations-23.0.0-2805bad7c59ab78b17c310a678fd2e19f73107d2.jar" />
-    </item>
-    <item
-        jar="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.0"
-        sha1="4fcf0b1879f8caf497c073e1432d398e9e2988c1">
-        <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/debug/classes-26d15bf28d3d6ce0893908c8e92ab19bfc531197.jar" />
     </item>
     <item
         jar="/home/robert/.gradle/caches/modules-2/files-2.1/com.github.scribejava/scribejava-core/3.2.0/8a48c3373a17c5f69144edbf7211cb3b2498ddd4/scribejava-core-3.2.0.jar"
@@ -49,6 +21,34 @@
         revision="23.0.0"
         sha1="8bd336eeae661e8311330284897ee07f8ebaa297">
         <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.0-3cdcc8bfa81d3959a9e65b5373312a7db261e0cf.jar" />
+    </item>
+    <item
+        jar="/home/robert/Documents/android-workspace/BestRead/app/libs/commons-codec-1.6.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="b7f0fc8f61ecadeb3695f0b9464755eee44374d4">
+        <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/debug/commons-codec-1.6-3a93ebd94bc8612658819951b4e583868ce995ef.jar" />
+    </item>
+    <item
+        jar="/home/robert/.gradle/caches/modules-2/files-2.1/com.github.scribejava/scribejava-apis/3.2.0/fe361e330f5a8f9c29ee31df2b4705d94c788e04/scribejava-apis-3.2.0.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="fe361e330f5a8f9c29ee31df2b4705d94c788e04">
+        <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/debug/scribejava-apis-3.2.0-c087bae01bbe370e1e4cf80180fe79684663085f.jar" />
+    </item>
+    <item
+        jar="/home/robert/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.0/support-annotations-23.0.0.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="990e7f98a7bad86a40b1f0bcfeb039023afd0839">
+        <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/debug/support-annotations-23.0.0-2805bad7c59ab78b17c310a678fd2e19f73107d2.jar" />
+    </item>
+    <item
+        jar="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="4fcf0b1879f8caf497c073e1432d398e9e2988c1">
+        <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/debug/classes-26d15bf28d3d6ce0893908c8e92ab19bfc531197.jar" />
     </item>
     <item
         jar="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.0/jars/classes.jar"
