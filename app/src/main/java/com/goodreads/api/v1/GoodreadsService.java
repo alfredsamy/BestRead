@@ -469,6 +469,21 @@ public class GoodreadsService {
         return false;
     }
 
+	public static Search search(String searchString) throws Exception
+	{
+		Uri.Builder builder = new Uri.Builder();
+		builder.scheme("http");
+		builder.authority("www.goodreads.com");
+		builder.path("search/index.xml");
+		builder.appendQueryParameter("key", sApiKey);
+		builder.appendQueryParameter("q", searchString);
+
+		OAuthRequest searchResults = new OAuthRequest(Verb.POST, builder.build().toString());
+		Response response = searchResults.send();
+		GoodreadsResponse notificationsResponse = GoodreadsService.parse(response.getStream());
+		return notificationsResponse.getSearch();
+	}
+
 // 	public static void postStatusUpdate(String book, String page, String comment) 
 // 		throws 
 // 			Exception
@@ -593,25 +608,7 @@ public class GoodreadsService {
 // 		
 // 		return friendsResponseData.getFriends();
 // 	}
-// 	
-// 	public static Search search(String searchString) throws Exception
-// 	{
-// 		Uri.Builder builder = new Uri.Builder();
-// 		builder.scheme("http");
-// 		builder.authority("www.goodreads.com");
-// 		builder.path("search/search");
-// 		builder.appendQueryParameter("format", "xml");
-// 		builder.appendQueryParameter("key", sConsumerKey);
-// 		builder.appendQueryParameter("q", searchString);
-// 
-// 		HttpClient httpClient = new DefaultHttpClient();
-// 		HttpGet getSearchResponse = new HttpGet(builder.build().toString());
-// 		HttpResponse searchResponse = httpClient.execute(getSearchResponse);
-// 		
-// 		Response searchResponseData = GoodreadsService.parse(searchResponse.getEntity().getContent());
-// 		
-// 		return searchResponseData.getSearch();
-// 	}
+//
 // 	
 // 	public static Book getReviewsForBook(String bookId) throws Exception
 // 	{

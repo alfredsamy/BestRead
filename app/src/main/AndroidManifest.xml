@@ -21,13 +21,14 @@
         </activity>
         <activity
             android:name=".UserFeed"
-            android:label="News Feed"></activity>
+            android:label="News Feed" />
         <activity
             android:name=".WriteStatus"
             android:label="Write status"
-            android:parentActivityName=".UserFeed"></activity>
-        <activity android:name=".User"></activity>
-    <activity android:name=".Notifications"></activity>
+            android:parentActivityName=".UserFeed" />
+        <activity android:name=".User" />
+        <activity android:name=".Notifications" />
+        <activity android:name=".Search"></activity>
     </application>
 
 </manifest>

@@ -74,6 +74,11 @@ public class UserFeed extends AppCompatActivity {
             startActivity(notification);
             return true;
         }
+        else if(id==R.id.Search){
+            Intent search = new Intent(this, Search.class);
+            startActivity(search);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
