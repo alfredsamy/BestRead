@@ -40,51 +40,68 @@ import android.sax.RootElement;
 import android.util.Xml;
 import android.util.Log;
 
-public class GoodreadsService
-{
-	private static final String TAG = "GoodreadsService";
-	//private static final String CALLBACK = "oauth://goodreads";
-	private static final String CALLBACK ="http://www.dummy.com";
+import com.github.scribejava.core.model.HttpClient;
 
-	private static String sApiKey;
-	private static String sApiSecret;
+public class GoodreadsService {
+    private static final String TAG = "GoodreadsService";
+    //private static final String CALLBACK = "oauth://goodreads";
+    private static final String CALLBACK = "http://www.dummy.com";
 
-	private static Token sAccessToken;
+    private static String sApiKey;
+    private static String sApiSecret;
 
-	private static OAuthService sService;
-	private static boolean sAuthenticated = false;
+    private static Token sAccessToken;
 
-	/**
-	 * OAuth Flow
-	 */
-	public static void init(String apiKey, String apiSecret) {
-		sApiKey = apiKey;
-		sApiSecret = apiSecret;
-		sService = new ServiceBuilder()
-		               .provider(GoodreadsApi.class)
-		               .apiKey(apiKey)
-		               .apiSecret(apiSecret)
-					   .callback(CALLBACK)
-		               .build();
-	}
+    private static OAuthService sService;
+    private static boolean sAuthenticated = false;
 
-	/**
-	 * Returns a request token
-	 */
-	public static Token getRequestToken() {
-		if (sService == null) {
-			throw new IllegalStateException("GoodreadsService hasn't been initialized.");
-		}
-		return sService.getRequestToken();
-	}
+    public static String getSAPIKey(){
+        return sApiKey;
+    }
 
-	public static String getAuthorizationUrl(Token requestToken) {
-		return sService.getAuthorizationUrl(requestToken);
-	}
+    public static OAuthService getsService(){
+        return sService;
+    }
 
-	public static Token getAccessToken(String verifier, Token requestToken) {
-		Verifier v = new Verifier(verifier);
-		sAccessToken = sService.getAccessToken(requestToken, v);
+    public static Token getsAccessToken(){
+        return sAccessToken;
+    }
+
+    /**
+     * OAuth Flow
+     */
+    public static void init(String apiKey, String apiSecret) {
+        sApiKey = apiKey;
+        sApiSecret = apiSecret;
+        sService = new ServiceBuilder()
+                .provider(GoodreadsApi.class)
+                .apiKey(apiKey)
+                .apiSecret(apiSecret)
+                .callback(CALLBACK)
+                .build();
+    }
+
+    /**
+     * Returns a request token
+     */
+    public static Token getRequestToken() {
+        if (sService == null) {
+            throw new IllegalStateException("GoodreadsService hasn't been initialized.");
+        }
+        return sService.getRequestToken();
+    }
+
+    public static String getAuthorizationUrl(Token requestToken) {
+        return sService.getAuthorizationUrl(requestToken);
+    }
+
+    public static Token getAccessToken(String verifier, Token requestToken) {
+        Verifier v = new Verifier(verifier);
+
+        if (requestToken == null)
+            return null;
+
+        sAccessToken = sService.getAccessToken(requestToken, v);
         sAuthenticated = true;
 		return sAccessToken;
 	}
@@ -243,7 +260,7 @@ public class GoodreadsService
 		return notificationsResponse.getmNotifications();
 	}
 // 	
-// 	public static Followers getFollowers(String userId) throws Exception 
+// 	public static Followers getFollowers(String userId) throws Exception
 // 	{
 // 		return getFollowers(userId, 1);
 // 	}
@@ -434,23 +451,24 @@ public class GoodreadsService
 // 		}
 // 	}
 // 	
-// 	public static void postStatusUpdate(String comment)	throws Exception
-// 	{
-// 		HttpClient httpClient = new DefaultHttpClient();
-// 		HttpPost post = new HttpPost("http://www.goodreads.com/user_status.xml");
-// 		
-// 		List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-// 		parameters.add(new BasicNameValuePair("user_status[body]", comment));
-// 		post.setEntity(new UrlEncodedFormEntity(parameters));
-// 		sService.signRequest(sAccessToken, post);
-// 		
-// 		HttpResponse response = httpClient.execute(post);
-// 		if (response.getStatusLine().getStatusCode() != 201)
-// 		{
-// 			throw new Exception(response.getStatusLine().toString());
-// 		}
-// 	}
-// 	
+    public static boolean postStatusUpdate(String comment) throws Exception {
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("http");
+        builder.authority("www.goodreads.com");
+        builder.path("user_status.xml");
+        builder.appendQueryParameter("user_status[body]", comment);
+
+        OAuthRequest getReviewRequest = new OAuthRequest(Verb.POST, builder.build().toString());
+        if (isAuthenticated()) {
+            sService.signRequest(sAccessToken, getReviewRequest);
+        }
+        Response response = getReviewRequest.send();
+        if(response.isSuccessful()){
+            return true;
+        }
+        return false;
+    }
+
 // 	public static void postStatusUpdate(String book, String page, String comment) 
 // 		throws 
 // 			Exception
@@ -715,28 +733,24 @@ public class GoodreadsService
 // 		return responseData.getEvents();
 // 	}
 
-	private static void setAuthenticated(boolean authenticated)
-	{
-		GoodreadsService.sAuthenticated = authenticated;
-	}
+    private static void setAuthenticated(boolean authenticated) {
+        GoodreadsService.sAuthenticated = authenticated;
+    }
 
-	public static boolean isAuthenticated()
-	{
-		return sAuthenticated;
-	}
+    public static boolean isAuthenticated() {
+        return sAuthenticated;
+    }
 
-	public static void setAccessToken(Token accessToken) {
-		sAccessToken = accessToken;
-		setAuthenticated(true);
-	}
+    public static void setAccessToken(Token accessToken) {
+        sAccessToken = accessToken;
+        setAuthenticated(true);
+    }
 
-	public static void setAccessToken(String token, String tokenSecret)
-	{
-		setAccessToken(new Token(token, tokenSecret));
-	}
+    public static void setAccessToken(String token, String tokenSecret) {
+        setAccessToken(new Token(token, tokenSecret));
+    }
 
-	public static void clearAuthentication()
-	{
-		setAuthenticated(false);
-	}
+    public static void clearAuthentication() {
+        setAuthenticated(false);
+    }
 }

@@ -1,22 +1,37 @@
 package com.bestread.app.bestread;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     SessionManager session;
+    private static String MyPREFERENCES = "BestReadPref";
+    private static SharedPreferences sharedpreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        session = new SessionManager();
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
+        session = new SessionManager();
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+        if(session.setAccessToken(sharedpreferences)) {//Already Authenticate Go to News Feed
+            goToFeed();
+            finish();
+        }
     }
 
     @Override
@@ -42,33 +57,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void signIn(View v) throws Exception {
-        //Toast.makeText(MainActivity.this, "YOUR MESSAGE", Toast.LENGTH_LONG).show();
-//        requestToken = g.getRequestToken();
-//        Log.d("Token",requestToken.getToken());
-//        String authUrl = g.getAuthorizationUrl(requestToken);
-//        Log.d("URL",authUrl);
-
         String authUrl = session.Authorization();
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(authUrl));
-        startActivity(intent);
+        if(!authUrl.isEmpty()){
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(authUrl));
+            startActivity(intent);
+        }else{
+            Toast toast = Toast.makeText(getApplicationContext(), "Couldn't Authorize Maybe No Internet ?", Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     public void login(View v) throws Exception {
-        session.initAccessToken();
-        Intent feed = new Intent(this, UserFeed.class);
-        startActivity(feed);
+        try {
+            session.initAccessToken();
+            session.saveAccessToken(sharedpreferences);
+            goToFeed();
+        }catch (Exception e){
+            e.printStackTrace();
+            Toast toast = Toast.makeText(getApplicationContext(), "Please Authorize First", Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
-    public void viewNotifications(View v) throws Exception {
+    public void viewNotifications() throws Exception {
         session.initAccessToken();
+        session.saveAccessToken(sharedpreferences);
         Intent notifications = new Intent(this, Notifications.class);
         startActivity(notifications);
     }
 
-    public void goToFeed(View view) {
-        //Toast.makeText(MainActivity.this, "User Name", Toast.LENGTH_LONG).show();
+
+    public void goToFeed() {
+        Toast toast = Toast.makeText(getApplicationContext(), "Loading...", Toast.LENGTH_LONG);
+        toast.show();
         Intent feed = new Intent(this, UserFeed.class);
-        //feed.putExtra("extra","Passed string in extra");
         startActivity(feed);
     }
 }

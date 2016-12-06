@@ -48,8 +48,9 @@ public class Notifications extends AppCompatActivity {
 
     private void listInit() throws IOException, SAXException {
         //populate the Feed list
-        List<Notification> notifications = GoodreadsService.getNotifications();
-        Log.d("Feed", notifications.size()+"");
+        GoodreadsService g = new GoodreadsService();
+        List<Notification> notifications = g.getNotifications();
+        Log.d("Feeda", notifications.size()+"");
         /*
         for (int i=0; i<updates.size();i++) {
             Log.d("Feed",i+"");

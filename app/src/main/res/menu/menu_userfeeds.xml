@@ -2,6 +2,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.bestread.app.bestread.UserFeed">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+    <item
+        android:id="@+id/profile_view"
+        android:orderInCategory="100"
+        android:title="Profile View" />
+
+    <item
+        android:id="@+id/writePost"
+        android:orderInCategory="100"
+        android:title="Write Status"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/Search"
+        android:orderInCategory="100"
+        android:title="Search" />
+
+    <item
+        android:id="@+id/notification"
+        android:orderInCategory="100"
+        android:title="Notification" />
 </menu>
