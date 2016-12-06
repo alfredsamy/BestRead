@@ -21,4 +21,9 @@
         android:id="@+id/notification"
         android:orderInCategory="100"
         android:title="Notification" />
+
+    <item
+        android:id="@+id/logout"
+        android:orderInCategory="100"
+        android:title="Log Out" />
 </menu>

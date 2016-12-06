@@ -16,7 +16,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     SessionManager session;
     private static String MyPREFERENCES = "BestReadPref";
-    private static SharedPreferences sharedpreferences;
+    public static SharedPreferences sharedpreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(session.setAccessToken(sharedpreferences)) {//Already Authenticate Go to News Feed
             goToFeed();
-            finish();
+
         }
     }
 
@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         toast.show();
         Intent feed = new Intent(this, UserFeed.class);
         startActivity(feed);
+        finish();
     }
 }
 

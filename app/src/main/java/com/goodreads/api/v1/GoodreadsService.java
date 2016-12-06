@@ -738,6 +738,11 @@ public class GoodreadsService {
         return sAuthenticated;
     }
 
+	public static void unAuthenticated() {
+		sAuthenticated = false;
+		sAccessToken = null;
+	}
+
     public static void setAccessToken(Token accessToken) {
         sAccessToken = accessToken;
         setAuthenticated(true);

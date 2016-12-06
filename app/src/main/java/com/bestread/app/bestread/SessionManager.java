@@ -63,7 +63,8 @@ public class SessionManager {
         Log.d("User", currentUser.getName());
         Log.d("Access Token", accessToken.getToken());
     }
-    public User getCurrentUser(){
+
+    public User getCurrentUser() {
         return currentUser;
     }
 
@@ -79,7 +80,7 @@ public class SessionManager {
 
     }
 
-    public boolean setAccessToken(SharedPreferences pref){
+    public boolean setAccessToken(SharedPreferences pref) {
         String token = pref.getString("token", null);
         String tokenSecrer = pref.getString("tokenSecrer", null);
         if (token == null) {
@@ -89,13 +90,23 @@ public class SessionManager {
         return true;
     }
 
-    public boolean postStatus(String comment)  {
+    public boolean postStatus(String comment) {
         try {
             return g.postStatusUpdate(comment);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public void logout(SharedPreferences pref) {
+        SharedPreferences.Editor editor = pref.edit();
+        editor.remove("token");
+        editor.remove("tokenSecrer");
+        editor.apply();
+
+        currentUser = null;
+        g.unAuthenticated();
     }
 
 

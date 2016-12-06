@@ -79,6 +79,15 @@ public class UserFeed extends AppCompatActivity {
             startActivity(search);
             return true;
         }
+        else if(id==R.id.logout){
+            SessionManager s = new SessionManager();
+            s.logout(MainActivity.sharedpreferences);
+            //go to main activity
+            Intent mainActivity = new Intent(this, MainActivity.class);
+            startActivity(mainActivity);
+            finish();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
