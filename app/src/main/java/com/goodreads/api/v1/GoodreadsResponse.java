@@ -41,6 +41,7 @@ public class GoodreadsResponse
 	private Comments mComments;
 	private List<Event> mEvents = new ArrayList<Event>();
 	private List<Update> mUpdates = new ArrayList<Update>();
+	private List<Notification> mNotifications = new ArrayList<Notification>();
 	
 	public void clear()
 	{
@@ -58,6 +59,7 @@ public class GoodreadsResponse
 		this.getAuthor().clear();
 		this.getComments().clear();
 		this.getEvents().clear();
+		this.getmNotifications().clear();
 	}
 	
 	public void copy()
@@ -90,6 +92,13 @@ public class GoodreadsResponse
 			events.add(this.getEvents().get(i));
 		}
 		responseCopy.setEvents(events);
+
+		List<Notification> notifications = new ArrayList<>();
+		for(int i = 0 ; i < this.getmNotifications().size(); i++)
+		{
+			notifications.add(this.getmNotifications().get(i));
+		}
+		responseCopy.setmNotifications(notifications);
 }
 	
 	public Request getRequest()
@@ -230,5 +239,13 @@ public class GoodreadsResponse
 	public List<Event> getEvents()
 	{
 		return mEvents;
+	}
+
+	public List<Notification> getmNotifications() {
+		return mNotifications;
+	}
+
+	public void setmNotifications(List<Notification> mNotifications) {
+		this.mNotifications = mNotifications;
 	}
 }

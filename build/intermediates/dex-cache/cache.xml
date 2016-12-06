@@ -2,32 +2,130 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\alfre\AndroidStudioProjects\BestRead\app\libs\scribe-1.3.0.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="C:\Users\Mahmoud\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-annotations\23.3.0\support-annotations-23.3.0.jar"
+        jumboMode="true"
+        optimize="true"
         revision="23.0.0"
-        sha1="8a9f92023995a881e97622f82a2dd36d23dda06c">
-        <dex dex="C:\Users\alfre\AndroidStudioProjects\BestRead\app\build\intermediates\pre-dexed\debug\scribe-1.3.0-a9f73c2a9f577fc21b91f9ba7241d7b51a126cf3.jar" />
+        sha1="db7791d75a07fef9844d06236c1c59ba7bf6997c">
+        <dex dex="G:\koleya\Fourth Year\First Term\software engineering\Project\BestRead\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.3.0_e977a9e162ceff79ee67f4364d904d07f4d4a00e\classes.dex" />
     </item>
     <item
-        jar="C:\Users\alfre\.gradle\caches\modules-2\files-2.1\com.github.scribejava\scribejava-apis\3.2.0\fe361e330f5a8f9c29ee31df2b4705d94c788e04\scribejava-apis-3.2.0.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="G:\koleya\Fourth Year\First Term\software engineering\Project\BestRead\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
         revision="23.0.0"
-        sha1="fe361e330f5a8f9c29ee31df2b4705d94c788e04">
-        <dex dex="C:\Users\alfre\AndroidStudioProjects\BestRead\app\build\intermediates\pre-dexed\debug\scribejava-apis-3.2.0-3470781b7bf68510633a06e068e98ad87c115d3a.jar" />
+        sha1="1b8e03daaa43fb0a4cd57e378167c2fd70454c1e">
+        <dex dex="G:\koleya\Fourth Year\First Term\software engineering\Project\BestRead\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.3.0_2f31d3ca81179128074d5bba47adcdc34254eafb\classes.dex" />
     </item>
     <item
-        jar="C:\Users\alfre\.gradle\caches\modules-2\files-2.1\com.github.scribejava\scribejava-core\3.2.0\8a48c3373a17c5f69144edbf7211cb3b2498ddd4\scribejava-core-3.2.0.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="G:\koleya\Fourth Year\First Term\software engineering\Project\BestRead\app\build\intermediates\exploded-aar\com.android.support\design\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
         revision="23.0.0"
-        sha1="8a48c3373a17c5f69144edbf7211cb3b2498ddd4">
-        <dex dex="C:\Users\alfre\AndroidStudioProjects\BestRead\app\build\intermediates\pre-dexed\debug\scribejava-core-3.2.0-938dd0ae989f97fae57535a282bdf30f90242258.jar" />
+        sha1="f0001e71cea6ae432a00021c6f727f5ef0f3d27e">
+        <dex dex="G:\koleya\Fourth Year\First Term\software engineering\Project\BestRead\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-23.3.0_516782065ef6a475dd7adec577fb1e1f52c65403\classes.dex" />
     </item>
     <item
-        jar="C:\Users\alfre\AndroidStudioProjects\BestRead\app\libs\commons-codec-1.6.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="G:\koleya\Fourth Year\First Term\software engineering\Project\BestRead\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.0"
+        sha1="23be6993826b8fd88bbc8d14928bb3b8960d3d4e">
+        <dex dex="G:\koleya\Fourth Year\First Term\software engineering\Project\BestRead\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-23.3.0_b552ec8d48284e886c418642f1404e3efd759db8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="G:\koleya\Fourth Year\First Term\software engineering\Project\BestRead\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.0"
+        sha1="a0b5d60246cd9d4f3f2443611b3b4c25265840b5">
+        <dex dex="G:\koleya\Fourth Year\First Term\software engineering\Project\BestRead\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-23.3.0_9944823dfdf71dfc9d4651359adc4b874b891dfa\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="G:\koleya\Fourth Year\First Term\software engineering\Project\BestRead\app\libs\commons-codec-1.6.jar"
+        jumboMode="true"
+        optimize="true"
         revision="23.0.0"
         sha1="b7f0fc8f61ecadeb3695f0b9464755eee44374d4">
-        <dex dex="C:\Users\alfre\AndroidStudioProjects\BestRead\app\build\intermediates\pre-dexed\debug\commons-codec-1.6-6c164269a3e5e11545027c817ff67ac73393ffed.jar" />
+        <dex dex="G:\koleya\Fourth Year\First Term\software engineering\Project\BestRead\app\build\intermediates\transforms\dex\debug\folders\1000\2\commons-codec-1.6_324a39c9787513301c57b979e6282d2f622fd8c4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="G:\koleya\Fourth Year\First Term\software engineering\Project\BestRead\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.0"
+        sha1="8a034dd16c0dfd75fe86c52c2cd581592acc684a">
+        <dex dex="G:\koleya\Fourth Year\First Term\software engineering\Project\BestRead\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.3.0_ed535b3dece8678a28d5f1a96758961ef8bcb601\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Mahmoud\.gradle\caches\modules-2\files-2.1\com.github.scribejava\scribejava-apis\3.2.0\fe361e330f5a8f9c29ee31df2b4705d94c788e04\scribejava-apis-3.2.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.0"
+        sha1="fe361e330f5a8f9c29ee31df2b4705d94c788e04">
+        <dex dex="G:\koleya\Fourth Year\First Term\software engineering\Project\BestRead\app\build\intermediates\transforms\dex\debug\folders\1000\10\scribejava-apis-3.2.0_a29204a32cef14d39015496f7fe863f3bcbc2b4b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Mahmoud\.gradle\caches\modules-2\files-2.1\com.github.scribejava\scribejava-core\3.2.0\8a48c3373a17c5f69144edbf7211cb3b2498ddd4\scribejava-core-3.2.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.0"
+        sha1="8a48c3373a17c5f69144edbf7211cb3b2498ddd4">
+        <dex dex="G:\koleya\Fourth Year\First Term\software engineering\Project\BestRead\app\build\intermediates\transforms\dex\debug\folders\1000\10\scribejava-core-3.2.0_2b7d8766f199dc90360160217d6bf31f2a22aca9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="G:\koleya\Fourth Year\First Term\software engineering\Project\BestRead\app\libs\scribe-1.3.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.0"
+        sha1="8a9f92023995a881e97622f82a2dd36d23dda06c">
+        <dex dex="G:\koleya\Fourth Year\First Term\software engineering\Project\BestRead\app\build\intermediates\transforms\dex\debug\folders\1000\2\scribe-1.3.0_aa04bb349882c90136f487319ce42b5adf204596\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="G:\koleya\Fourth Year\First Term\software engineering\Project\BestRead\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.0"
+        sha1="debf30ce0a7560396b6235edef77e447006454c2">
+        <dex dex="G:\koleya\Fourth Year\First Term\software engineering\Project\BestRead\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-23.3.0_959f09d09bfca847b4bfe3c46b8d270193884f09\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="G:\koleya\Fourth Year\First Term\software engineering\Project\BestRead\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.0"
+        sha1="88a44bb62013522182a1846ae8a11d0475b8da8a">
+        <dex dex="G:\koleya\Fourth Year\First Term\software engineering\Project\BestRead\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_66b2fdcb20ca58acbf801c4632beff33b178562a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="G:\koleya\Fourth Year\First Term\software engineering\Project\BestRead\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.0"
+        sha1="86097916e7176ebcd814b35b6ea1d03856ae1398">
+        <dex dex="G:\koleya\Fourth Year\First Term\software engineering\Project\BestRead\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_193a4d0061326e1a99dd3feb995f6d5ad6b654c5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="G:\koleya\Fourth Year\First Term\software engineering\Project\BestRead\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\libs\internal_impl-23.3.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.0"
+        sha1="4da5a4d697d32497c6f85567a5112e62fdfd0676">
+        <dex dex="G:\koleya\Fourth Year\First Term\software engineering\Project\BestRead\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.3.0_f7a6cc06e0bea6067a6b98afdb34506a50f72ca6\classes.dex" />
     </item>
 
 </items>

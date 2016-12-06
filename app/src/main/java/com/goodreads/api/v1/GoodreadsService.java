@@ -109,6 +109,7 @@ public class GoodreadsService
 		response.setAuthor(Author.appendListener(root, 0));
 		response.setComments(Comments.appendListener(root, 0));
 		response.setEvents(Event.appendArrayListener(root, 0));
+		response.setmNotifications(Notification.appendArrayListener(root,0));
 		try
 		{
 			Xml.parse(inputStream, Xml.Encoding.UTF_8, root.getContentHandler());
@@ -223,6 +224,23 @@ public class GoodreadsService
 		//Log.d("Friend up response",response.getBody());
 		GoodreadsResponse updatesResponse = GoodreadsService.parse(response.getStream());
 		return updatesResponse.getUpdates();
+	}
+
+	public static List<Notification> getNotifications() throws IOException, SAXException {
+		Uri.Builder builder = new Uri.Builder();
+		builder.scheme("http");
+		builder.authority("www.goodreads.com");
+		builder.path("notifications.xml");
+
+		OAuthRequest getNotificationsRequest = new OAuthRequest(Verb.GET, builder.build().toString());
+		if (isAuthenticated())
+		{
+			sService.signRequest(sAccessToken, getNotificationsRequest);
+		}
+		Response response = getNotificationsRequest.send();
+		//Log.d("Friend up response",response.getBody());
+		GoodreadsResponse notificationsResponse = GoodreadsService.parse(response.getStream());
+		return notificationsResponse.getmNotifications();
 	}
 // 	
 // 	public static Followers getFollowers(String userId) throws Exception 

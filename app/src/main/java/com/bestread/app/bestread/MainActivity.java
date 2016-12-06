@@ -59,6 +59,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(feed);
     }
 
+    public void viewNotifications(View v) throws Exception {
+        session.initAccessToken();
+        Intent notifications = new Intent(this, Notifications.class);
+        startActivity(notifications);
+    }
+
     public void goToFeed(View view) {
         //Toast.makeText(MainActivity.this, "User Name", Toast.LENGTH_LONG).show();
         Intent feed = new Intent(this, UserFeed.class);
