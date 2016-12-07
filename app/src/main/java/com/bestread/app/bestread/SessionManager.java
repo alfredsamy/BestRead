@@ -34,13 +34,13 @@ public class SessionManager {
         String authUrl = "";
         try {
             requestToken = g.getRequestToken();
-            Log.d("Token", requestToken.getToken());
+            //Log.d("Token", requestToken.getToken());
             authUrl = g.getAuthorizationUrl(requestToken);
-            Log.d("URL", authUrl);
+            //Log.d("URL", authUrl);
 
         } catch (Exception e) {
             e.printStackTrace();
-            Log.d("ERROR", "Unable to login");
+            //Log.d("ERROR", "Unable to login");
         }
         return authUrl;
     }
@@ -55,6 +55,7 @@ public class SessionManager {
             throw new Exception("User Not Authorized");
 
         Log.d("Token", accessToken.getToken());
+        Log.d("TokenSecret", accessToken.getSecret());
         try {
             currentUser = g.getAuthorizedUser();
         } catch (Exception e) {

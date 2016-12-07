@@ -32,17 +32,15 @@ public class Search extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("arrived here ","yes");
+        Log.d("arrived here ", "yes");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        Button mButton = (Button)findViewById(R.id.button4);
-        final EditText mEdit   = (EditText)findViewById(R.id.editText2);
+        Button mButton = (Button) findViewById(R.id.button4);
+        final EditText mEdit = (EditText) findViewById(R.id.editText2);
 
         mButton.setOnClickListener(
-                new View.OnClickListener()
-                {
-                    public void onClick(View view)
-                    {
+                new View.OnClickListener() {
+                    public void onClick(View view) {
                         try {
                             listInit(mEdit.getText().toString());
                         } catch (IOException e) {
@@ -61,7 +59,7 @@ public class Search extends AppCompatActivity {
 
         GoodreadsService g = new GoodreadsService();
         List<Work> works = g.search(query).getResults();
-        Log.d("search results: ", works.size()+"");
+        Log.d("search results: ", works.size() + "");
         /*
         for (int i=0; i<updates.size();i++) {
             Log.d("Feed",i+"");
@@ -117,24 +115,32 @@ public class Search extends AppCompatActivity {
 
             View v = inflater.inflate(R.layout.feed_item, null);
 
-            //Actor Img
-            ImageView actorImg = (ImageView) v.findViewById(R.id.actorImage);
-            actorImg.setImageBitmap(loadBitmap(work.getBestBook().getImageUrl()));
+            Bitmap book = loadBitmap(work.getBestBook().getImageUrl());
 
-            //Actor name
+            //Actor Img
+            //ImageView actorImg = (ImageView) v.findViewById(R.id.actorImage);
+            //actorImg.setImageBitmap(book);
+
+            //Book Title
             TextView actorName = (TextView) v.findViewById(R.id.actorName);
             actorName.setText(work.getBestBook().getTitle());
 
-            //date
-//            SimpleDateFormat sdf = new SimpleDateFormat("E, dd MMM yyyy hh:mm:ss Z");
-              TextView date = (TextView) v.findViewById(R.id.date);
+            //AVG Rating
+            TextView date = (TextView) v.findViewById(R.id.date);
             date.setText(Float.toString(work.getAverageRating()));
 
             //desc
             TextView desc = (TextView) v.findViewById(R.id.description);
-            desc.setText(work.getBestBook().getAuthor().getName());
+            desc.setText("Author: "+work.getBestBook().getAuthor().getName());
+
+
+            //Book Img
+            ImageView bookImg = (ImageView) v.findViewById(R.id.bookImg);
+            bookImg.setImageBitmap(book);
+
             return v;
         }
+
         public Bitmap loadBitmap(String url) {
             String urldisplay = url;
             Bitmap mIcon11 = null;

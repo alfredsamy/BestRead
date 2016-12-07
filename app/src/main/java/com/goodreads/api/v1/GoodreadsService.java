@@ -95,14 +95,18 @@ public class GoodreadsService {
         return sService.getAuthorizationUrl(requestToken);
     }
 
-    public static Token getAccessToken(String verifier, Token requestToken) {
+    public static Token getAccessToken(String verifier, Token requestToken) throws Exception {
         Verifier v = new Verifier(verifier);
 
         if (requestToken == null)
             return null;
 
-        sAccessToken = sService.getAccessToken(requestToken, v);
-        sAuthenticated = true;
+        try {
+			sAccessToken = sService.getAccessToken(requestToken, v);
+		}catch (Exception e){
+			throw new Exception("User Not Authorized");
+		}
+		sAuthenticated = true;
 		return sAccessToken;
 	}
 

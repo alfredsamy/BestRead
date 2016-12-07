@@ -10,6 +10,6 @@ public class test1 {
         assertEquals("NOOOOOOO", "a", "a");
     }
 
-    
+
 }
 
