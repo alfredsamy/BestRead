@@ -7,4 +7,5 @@
     <string name="title_activity_userfeeds">userfeeds</string>
     <string name="title_activity_notifications">Notifications</string>
     <string name="notifications">Notifications</string>
+    <string name="title_activity_author">Author</string>
 </resources>

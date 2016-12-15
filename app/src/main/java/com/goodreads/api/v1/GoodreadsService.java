@@ -274,6 +274,25 @@ public class GoodreadsService {
 //		return notificationsResponse.getmNotifications();
 		return notifications;
 	}
+
+	public static Author getAuthorById(String authorId) throws Exception
+	{
+		Uri.Builder builder = new Uri.Builder();
+		builder.scheme("http");
+		builder.authority("www.goodreads.com");
+		builder.path("author/show/" + authorId + ".xml");
+		builder.appendQueryParameter("key", sApiKey);
+		OAuthRequest getAuthorRequest = new OAuthRequest(Verb.GET, builder.build().toString());
+		if (isAuthenticated())
+		{
+			sService.signRequest(sAccessToken, getAuthorRequest);
+		}
+		Response response = getAuthorRequest.send();
+
+		GoodreadsResponse responseData = GoodreadsService.parse(response.getStream());
+
+		return responseData.getAuthor();
+	}
 // 	
 // 	public static Followers getFollowers(String userId) throws Exception
 // 	{

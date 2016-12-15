@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/feedItem"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e2e2e2"
+    android:paddingBottom="10dp">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_floating_material_light"
+        android:padding="10dp">
+
+
+        <ImageView
+            android:id="@+id/bookItemImage"
+            android:layout_width="70dp"
+            android:layout_height="100dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true" />
+
+        <TextView
+            android:id="@+id/bookItemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/bookItemImage"
+            android:text="Name"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/bookItemdescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bookItemName"
+            android:layout_toEndOf="@+id/bookItemImage"
+            android:text="Description"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -2,16 +2,19 @@ package com.bestread.app.bestread;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +22,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.goodreads.api.v1.Author;
+import com.goodreads.api.v1.BestBook;
+import com.goodreads.api.v1.Book;
 import com.goodreads.api.v1.GoodreadsService;
 import com.goodreads.api.v1.Work;
 
@@ -29,6 +35,7 @@ import java.io.InputStream;
 import java.util.List;
 
 public class Search extends AppCompatActivity {
+    private List<Work> works;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +65,8 @@ public class Search extends AppCompatActivity {
         //populate the Feed list
 
         GoodreadsService g = new GoodreadsService();
-        List<Work> works = g.search(query).getResults();
+
+        works = g.search(query).getResults();
         Log.d("search results: ", works.size() + "");
         /*
         for (int i=0; i<updates.size();i++) {
@@ -71,6 +79,55 @@ public class Search extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.resultsList);
         listView.setAdapter(resultsArrayAdaptor);
+
+        registerForContextMenu(listView);
+
+        /*
+        //Action on Item Click
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Work work = works.get(position);
+                BestBook book = work.getBestBook();
+                Author author = book.getAuthor();
+
+                displayAuthor(author);
+
+            }
+        });
+        */
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        if (v.getId() == R.id.resultsList) {
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+            //menu.setHeaderTitle(Countries[info.position]);
+            menu.setHeaderTitle("Options");
+            menu.add(Menu.NONE, 0, 0, "Book Details");
+            menu.add(Menu.NONE, 1, 1, "Author Details");
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        int menuItemIndex = item.getItemId();
+
+        if(menuItemIndex == 0){
+            //GOTO Book activity
+        }
+        else if(menuItemIndex == 1){
+            //GOTO Author activity
+            Work work = works.get(info.position);
+            BestBook book = work.getBestBook();
+            Author author = book.getAuthor();
+
+            displayAuthor(author);
+        }
+
+
+        return true;
     }
 
     @Override
@@ -94,6 +151,14 @@ public class Search extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    private void displayAuthor(Author author) {
+        Intent autorIntent = new Intent(this, AuthorActivity.class);
+        autorIntent.putExtra("ID", author.getId());
+        startActivity(autorIntent);
+    }
+
 
     class SearchAdapter extends ArrayAdapter<Work> {
 
@@ -131,7 +196,7 @@ public class Search extends AppCompatActivity {
 
             //desc
             TextView desc = (TextView) v.findViewById(R.id.description);
-            desc.setText("Author: "+work.getBestBook().getAuthor().getName());
+            desc.setText("Author: " + work.getBestBook().getAuthor().getName());
 
 
             //Book Img
