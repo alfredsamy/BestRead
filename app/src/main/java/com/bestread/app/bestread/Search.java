@@ -117,7 +117,7 @@ public class Search extends AppCompatActivity {
 
             Bitmap book = loadBitmap(work.getBestBook().getImageUrl());
 
-            //Actor Img
+            //User Img
             //ImageView actorImg = (ImageView) v.findViewById(R.id.actorImage);
             //actorImg.setImageBitmap(book);
 

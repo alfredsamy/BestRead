@@ -151,14 +151,14 @@ public class UserFeed extends AppCompatActivity {
 
             View v = inflater.inflate(R.layout.feed_item, null);
 
-            //Actor Img
+            //User Img
             ImageView actorImg = (ImageView) v.findViewById(R.id.actorImage);
             if(aImg[position] == null){
                 aImg[position] = loadBitmap(update.getActor().getImageUrl());
             }
             actorImg.setImageBitmap(aImg[position]);
 
-            //Actor name
+            //User name
             TextView actorName = (TextView) v.findViewById(R.id.actorName);
             actorName.setText(update.getActor().getName());
 

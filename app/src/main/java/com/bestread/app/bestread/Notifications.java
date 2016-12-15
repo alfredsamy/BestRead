@@ -17,16 +17,19 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.extrafunctions.Notification;
 import com.goodreads.api.v1.GoodreadsService;
-import com.goodreads.api.v1.Notification;
-import com.goodreads.api.v1.Update;
+
 
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Notifications extends AppCompatActivity {
@@ -36,8 +39,10 @@ public class Notifications extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notifications);
         ArrayList<Notification>  notifications = new ArrayList<>();
+        Log.d("wasalnaaaaaaaaaa"," heeeeeeeeeeeeh");
         try
         {
+            Log.d("before ", "List init");
             listInit();
         }
         catch(Exception e)
@@ -104,21 +109,30 @@ public class Notifications extends AppCompatActivity {
             LayoutInflater inflater = (LayoutInflater)
                     context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
-            View v = inflater.inflate(R.layout.feed_item, null);
+            View v = inflater.inflate(R.layout.notification_item, null);
 
-            //Actor Img
+            //User Img
             ImageView actorImg = (ImageView) v.findViewById(R.id.actorImage);
-            actorImg.setImageBitmap(loadBitmap(notification.getActors().get(0).getImageUrl()));
+            actorImg.setImageBitmap(loadBitmap(notification.getUsers().get(0).getImageUrl()));
 
-            //Actor name
+            //User name
             TextView actorName = (TextView) v.findViewById(R.id.actorName);
-            actorName.setText(notification.getActors().get(0).getName());
+            actorName.setText(notification.getUsers().get(0).getDisplayName());
 
             //date
-            SimpleDateFormat sdf = new SimpleDateFormat("E, dd MMM yyyy hh:mm:ss Z");
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss-07:00");
+            Date startDate = null;
+            try {
+                startDate = df.parse(notification.getCreatedAt());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            SimpleDateFormat sdf = new SimpleDateFormat("E, dd MMM yyyy hh:mm:ss");
             TextView date = (TextView) v.findViewById(R.id.date);
-            date.setText( sdf.format(notification.getCreated_at()));
-
+            if(startDate!=null){
+                date.setText( sdf.format(startDate));
+            }
+            else date.setText("");
             //desc
             TextView desc = (TextView) v.findViewById(R.id.description);
             desc.setText(notification.getBody().getText());

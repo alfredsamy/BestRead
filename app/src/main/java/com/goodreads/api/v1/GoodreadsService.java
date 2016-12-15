@@ -24,6 +24,7 @@ package com.goodreads.api.v1;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.scribe.builder.ServiceBuilder;
@@ -40,6 +41,8 @@ import android.sax.RootElement;
 import android.util.Xml;
 import android.util.Log;
 
+import com.extrafunctions.Notification;
+import com.extrafunctions.Wrapper;
 import com.github.scribejava.core.model.HttpClient;
 
 public class GoodreadsService {
@@ -130,7 +133,7 @@ public class GoodreadsService {
 		response.setAuthor(Author.appendListener(root, 0));
 		response.setComments(Comments.appendListener(root, 0));
 		response.setEvents(Event.appendArrayListener(root, 0));
-		response.setmNotifications(Notification.appendArrayListener(root,0));
+		//response.setmNotifications(Notification.appendArrayListener(root,0));
 		try
 		{
 			Xml.parse(inputStream, Xml.Encoding.UTF_8, root.getContentHandler());
@@ -259,9 +262,17 @@ public class GoodreadsService {
 			sService.signRequest(sAccessToken, getNotificationsRequest);
 		}
 		Response response = getNotificationsRequest.send();
+		Log.d("response is ", response.getBody());
+		List<Notification> notifications = null;
+		try {
+			notifications = Wrapper.getNotifications(response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		//Log.d("Friend up response",response.getBody());
-		GoodreadsResponse notificationsResponse = GoodreadsService.parse(response.getStream());
-		return notificationsResponse.getmNotifications();
+//		GoodreadsResponse notificationsResponse = GoodreadsService.parse(response.getStream());
+//		return notificationsResponse.getmNotifications();
+		return notifications;
 	}
 // 	
 // 	public static Followers getFollowers(String userId) throws Exception
