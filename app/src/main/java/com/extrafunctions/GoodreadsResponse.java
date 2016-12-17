@@ -16,8 +16,11 @@ public class GoodreadsResponse {
 //    @Element(name="Request")
 //    private Request request;
 
-    @ElementList(name="notifications")
+    @ElementList(name="notifications", required = false)
     private ArrayList<Notification> notifications;
+
+    @Element(name="book", required = false)
+    private Book book;
 
     public GoodreadsResponse() {
 //        this.request = request;
@@ -38,5 +41,13 @@ public class GoodreadsResponse {
 
     public void setNotifications(ArrayList<Notification> notifications) {
         this.notifications = notifications;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
     }
 }

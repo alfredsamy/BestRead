@@ -116,6 +116,9 @@ public class Search extends AppCompatActivity {
 
         if(menuItemIndex == 0){
             //GOTO Book activity
+            Work work = works.get(info.position);
+            BestBook book = work.getBestBook();
+            displayBook(Integer.toString(book.getId()));
         }
         else if(menuItemIndex == 1){
             //GOTO Author activity
@@ -152,6 +155,11 @@ public class Search extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void displayBook(String bookId) {
+        Intent bookIntent = new Intent(this, BooksActivity.class);
+        bookIntent.putExtra("ID",bookId);
+        startActivity(bookIntent);
+    }
 
     private void displayAuthor(Author author) {
         Intent autorIntent = new Intent(this, AuthorActivity.class);

@@ -21,7 +21,7 @@
 //===============================================================================
 
 package com.goodreads.api.v1;
-
+import com.extrafunctions.Book;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -44,6 +44,8 @@ import android.util.Log;
 import com.extrafunctions.Notification;
 import com.extrafunctions.Wrapper;
 import com.github.scribejava.core.model.HttpClient;
+
+import static com.bestread.app.bestread.R.string.notifications;
 
 public class GoodreadsService {
     private static final String TAG = "GoodreadsService";
@@ -119,7 +121,7 @@ public class GoodreadsService {
 
 		RootElement root = new RootElement("GoodreadsResponse");
 
-		response.setBook(Book.appendListener(root, 0));
+		//response.setBook(Book.appendListener(root, 0));
 		response.setRequest(Request.appendListener(root));
 		response.setUser(User.appendListener(root, 0));
 		response.setShelves(Shelves.appendListener(root, 0));
@@ -644,34 +646,35 @@ public class GoodreadsService {
 // 	}
 //
 // 	
-// 	public static Book getReviewsForBook(String bookId) throws Exception
-// 	{
-// 		return getReviewsForBook(bookId, 1);
-// 	}
-// 
-// 	public static Book getReviewsForBook(String bookId, int page) throws Exception
-// 	{
-// 		Uri.Builder builder = new Uri.Builder();
-// 		builder.scheme("http");
-// 		builder.authority("www.goodreads.com");
-// 		builder.path("book/show");
-// 		builder.appendQueryParameter("key", sConsumerKey);
-// 		builder.appendQueryParameter("page", Integer.toString(page));
-// 		builder.appendQueryParameter("id", bookId);
-// 		builder.appendQueryParameter("format", "xml");
-// 
-// 		HttpClient httpClient = new DefaultHttpClient();
-// 		HttpGet getRequest = new HttpGet(builder.build().toString());
-// 		if (isAuthenticated())
-// 		{
-// 			sService.signRequest(sAccessToken, getRequest);
-// 		}
-// 		HttpResponse response = httpClient.execute(getRequest);
-// 		
-// 		Response responseData = GoodreadsService.parse(response.getEntity().getContent());
-// 		
-// 		return responseData.getBook();
-// 	}
+ 	public static com.extrafunctions.Book getReviewsForBook(String bookId) throws Exception
+ 	{
+ 		return getReviewsForBook(bookId, 1);
+ 	}
+
+ 	public static com.extrafunctions.Book getReviewsForBook(String bookId, int page) throws Exception
+ 	{
+ 		Uri.Builder builder = new Uri.Builder();
+ 		builder.scheme("http");
+ 		builder.authority("www.goodreads.com");
+ 		builder.path("book/show");
+ 		builder.appendQueryParameter("key", sApiKey);
+ 		builder.appendQueryParameter("page", Integer.toString(page));
+ 		builder.appendQueryParameter("id", bookId);
+ 		builder.appendQueryParameter("format", "xml");
+
+		OAuthRequest getBookRequest = new OAuthRequest(Verb.GET, builder.build().toString());
+		Log.d("hmada","");
+		Response response = getBookRequest.send();
+		Log.d("response was:", response.getBody());
+		Book book = null;
+		try {
+			book = Wrapper.getBook(response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		//GoodreadsResponse bookResponse = GoodreadsService.parse(response.getStream());
+ 		return book;
+ 	}
 // 	
 // 	public static Book getReviewsForBook(String bookId, int page, int rating) throws Exception
 // 	{
