@@ -13,13 +13,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.goodreads.api.v1.Author;
 import com.goodreads.api.v1.Book;
+import com.goodreads.api.v1.Following;
 import com.goodreads.api.v1.GoodreadsService;
 import com.goodreads.api.v1.Update;
 
@@ -28,7 +31,8 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class AuthorActivity extends AppCompatActivity {
-    GoodreadsService g;
+    private GoodreadsService g;
+    private Author author;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +43,14 @@ public class AuthorActivity extends AppCompatActivity {
 
 
         try {
-            Author author = g.getAuthorById(authorId + "");
+            author = g.getAuthorById(authorId + "");
+            Following follows = g.getFollowing(g.getAuthorizedUser().getId());
+
+            Log.d("Following IDS",follows.getFollowing().size()+"");
+            for (int i = 0;i<follows.getFollowing().size();i++){
+                Log.d("Following",follows.getFollowing().get(i).getId());
+            }
+
 
             //Author Image
             ImageView authorImg = (ImageView) findViewById(R.id.authorImg);
@@ -70,12 +81,29 @@ public class AuthorActivity extends AppCompatActivity {
             List<Book> books = author.getBooks();
             listInit(books);
 
+            boolean isfollowing = false;
+            for (int i = 0;i<follows.getFollowing().size();i++){
+                //Log.d("Following",follows.getFollowing().get(i).getId());
+                if(follows.getFollowing().get(i).getId().equals(author.getUserId())){
+                    isfollowing = true;
+                    break;
+                }
+            }
+            if(isfollowing){
+                //remove follow button
+                Button followButton = (Button) findViewById(R.id.followButton);
+                ((ViewGroup) followButton.getParent()).removeView(followButton);
+            }
+            else{
+                //remove unfollow button
+                Button unfollowButton = (Button) findViewById(R.id.unfollowButton);
+                ((ViewGroup) unfollowButton.getParent()).removeView(unfollowButton);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -141,6 +169,34 @@ public class AuthorActivity extends AppCompatActivity {
         listView.requestLayout();
     }
 
+    public void follow(View view) {
+        try {
+            g.followAuthor(author.getId()+"");
+            //remove follow button
+            Button followButton = (Button) findViewById(R.id.followButton);
+            ((ViewGroup) followButton.getParent()).removeView(followButton);
+            Toast.makeText(getApplicationContext(), "FOLLOW", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Can't FOLLOW", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    public void unfollow(View view) {
+        try {
+            //g.unfollowAuthor(author.getId()+"");
+            g.unfollowUser(author.getUserId() + "");
+            //remove unfollow button
+            Button unfollowButton = (Button) findViewById(R.id.unfollowButton);
+            ((ViewGroup) unfollowButton.getParent()).removeView(unfollowButton);
+            Toast.makeText(getApplicationContext(), "UNFOLLOW", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Can't UNFOLLOW", Toast.LENGTH_SHORT).show();
+        }
+
+    }
 
     class BookListAdaptor extends ArrayAdapter<Book> {
         Context context;

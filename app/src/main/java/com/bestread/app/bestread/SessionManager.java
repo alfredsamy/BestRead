@@ -88,6 +88,11 @@ public class SessionManager {
             return false;
         }
         g.setAccessToken(token, tokenSecrer);
+        try {
+            currentUser = g.getAuthorizedUser();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return true;
     }
 
