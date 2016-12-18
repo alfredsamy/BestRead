@@ -10,8 +10,8 @@
 
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_gravity="center_vertical">
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -44,16 +44,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/authorName"
-                android:layout_toEndOf="@+id/authorImg"
-                android:text="Follow" />
+                android:text="Follow"
+                android:layout_marginTop="10dp"
+                android:onClick="follow"
+                android:layout_centerHorizontal="true"/>
 
             <Button
                 android:id="@+id/unfollowButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Unfollow"
+                android:onClick="unfollow"
                 android:layout_below="@+id/authorName"
-                android:layout_toEndOf="@+id/authorImg"
-                android:text="Unfollow" />
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true" />
 
             <TextView
                 android:id="@+id/description"

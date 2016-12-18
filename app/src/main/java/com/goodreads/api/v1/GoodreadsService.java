@@ -295,6 +295,102 @@ public class GoodreadsService {
 
 		return responseData.getAuthor();
 	}
+
+
+	public static boolean followAuthor(String authorId) throws Exception {
+		//http://www.goodreads.com/author_followings?id=AUTHOR_ID&format=xml
+		Uri.Builder builder = new Uri.Builder();
+		builder.scheme("http");
+		builder.authority("www.goodreads.com");
+		builder.path("author_followings");
+		builder.appendQueryParameter("id", authorId);
+		builder.appendQueryParameter("format", "xml");
+
+		Log.d("Follow", builder.build().toString());
+		OAuthRequest followAuthorRequest = new OAuthRequest(Verb.POST, builder.build().toString());
+		if (isAuthenticated()) {
+			sService.signRequest(sAccessToken, followAuthorRequest);
+		}
+		Response response = followAuthorRequest.send();
+		//Log.d("Follow",response.getBody());
+		if(response.isSuccessful()){
+			Log.d("Follow", "TRUE");
+			return true;
+		}
+		Log.d("Follow","FALSE");
+		return false;
+	}
+	public static boolean unfollowAuthor(String authorId) throws Exception {
+		//don't know where to get AUTHOR_FOLLOWING_ID
+		//http://www.goodreads.com/author_followings/AUTHOR_FOLLOWING_ID?format=xml
+		Uri.Builder builder = new Uri.Builder();
+		builder.scheme("http");
+		builder.authority("www.goodreads.com");
+		builder.path("author_followings/" + authorId);
+		builder.appendQueryParameter("format", "xml");
+
+		Log.d("UnFollow", builder.build().toString());
+		OAuthRequest followAuthorRequest = new OAuthRequest(Verb.DELETE, builder.build().toString());
+		if (isAuthenticated()) {
+			sService.signRequest(sAccessToken, followAuthorRequest);
+		}
+		Response response = followAuthorRequest.send();
+		Log.d("UnFollow",response.getBody());
+		if(response.isSuccessful()){
+			Log.d("UnFollow","TRUE");
+			return true;
+		}
+		Log.d("UnFollow","False");
+		return false;
+	}
+
+
+ 	public static Following getFollowing(String userId) throws Exception
+ 	{
+		Uri.Builder builder = new Uri.Builder();
+ 		builder.scheme("http");
+ 		builder.authority("www.goodreads.com");
+ 		builder.path("user/" + userId + "/following");
+ 		builder.appendQueryParameter("format", "xml");
+ 		builder.appendQueryParameter("key", sApiKey);
+
+		OAuthRequest following = new OAuthRequest(Verb.GET, builder.build().toString());
+		if (isAuthenticated()) {
+			sService.signRequest(sAccessToken, following);
+		}
+		Response response = following.send();
+		GoodreadsResponse responseData = GoodreadsService.parse(response.getStream());
+		return responseData.getFollowing();
+ 	}
+
+
+	public static boolean unfollowUser(String userId) throws Exception {
+		// http://www.goodreads.com/user/USER_ID/followers/stop_following.xml
+		Uri.Builder builder = new Uri.Builder();
+		builder.scheme("http");
+		builder.authority("www.goodreads.com");
+		builder.path("user/" + userId + "/followers/stop_following.xml");
+
+		Log.d("UnFollow", builder.build().toString());
+		OAuthRequest followAuthorRequest = new OAuthRequest(Verb.DELETE, builder.build().toString());
+		if (isAuthenticated()) {
+			sService.signRequest(sAccessToken, followAuthorRequest);
+		}
+		Response response = followAuthorRequest.send();
+		//Log.d("UnFollow",response.getBody());
+		if(response.isSuccessful()){
+			Log.d("UnFollow","TRUE");
+			return true;
+		}
+		Log.d("UnFollow","False");
+		return false;
+	}
+
+
+
+
+
+
 // 	
 // 	public static Followers getFollowers(String userId) throws Exception
 // 	{

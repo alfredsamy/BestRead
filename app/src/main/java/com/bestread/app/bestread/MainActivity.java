@@ -31,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
 
         if(session.setAccessToken(sharedpreferences)) {//Already Authenticate Go to News Feed
             goToFeed();
+//            Intent autorIntent = new Intent(this, AuthorActivity.class);
+//            autorIntent.putExtra("ID", 3389);
+//            startActivity(autorIntent);
+            finish();
 
         }
     }
