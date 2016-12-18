@@ -1,5 +1,6 @@
 package com.bestread.app.bestread;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,12 +23,14 @@ import static com.bestread.app.bestread.SessionManager.g;
 
 public class BooksActivity extends AppCompatActivity {
 
+    public String bookMId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_books);
         g= new GoodreadsService();
         String bookId = getIntent().getStringExtra("ID");
+        this.bookMId = bookId;
         try{
             com.extrafunctions.Book book = g.getReviewsForBook(bookId);
             Log.d("book's image: ",book.getImageUrl());
@@ -76,6 +80,12 @@ public class BooksActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void goToReview(View view){
+        Intent reviewIntent = new Intent(this, ReviewActivity.class);
+        reviewIntent.putExtra("ID",this.bookMId);
+        startActivity(reviewIntent);
     }
 
     public Bitmap loadBitmap(String url) {
