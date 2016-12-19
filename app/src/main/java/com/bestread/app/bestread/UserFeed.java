@@ -186,6 +186,22 @@ public class UserFeed extends AppCompatActivity {
                 bookImg.setImageBitmap(bImg[position]);
             }
 
+            // comment button
+            View.OnClickListener onclick_comment = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("Robert", "from onclick");
+                    Toast toast = Toast.makeText(getApplicationContext(), "Comment YAY !", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+            };
+
+            Button comment_button = (Button) v.findViewById(R.id.comment_button);
+            if(comment_button != null)
+                comment_button.setOnClickListener(onclick_comment);
+            else
+                Log.d("Robert", "comment button is NULL");
+
             return v;
         }
         public Bitmap loadBitmap(String url) {

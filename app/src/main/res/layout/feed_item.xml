@@ -51,12 +51,20 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
 
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:id="@+id/bookImg"
-        android:layout_below="@+id/description"
-        android:layout_centerHorizontal="true" />
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/bookImg"
+            android:layout_below="@+id/comment_button"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:text="comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/comment_button"
+            android:layout_below="@+id/description"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 </RelativeLayout>
