@@ -3,84 +3,102 @@
 
     <item
         is-multidex="false"
-        jar="C:\Users\alfre\AndroidStudioProjects\BestRead\app\libs\scribe-1.3.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.0"
-        sha1="8a9f92023995a881e97622f82a2dd36d23dda06c">
-        <dex dex="C:\Users\alfre\AndroidStudioProjects\BestRead\app\build\intermediates\pre-dexed\debug\scribe-1.3.0_a9f73c2a9f577fc21b91f9ba7241d7b51a126cf3.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\alfre\AndroidStudioProjects\BestRead\app\libs\commons-codec-1.6.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.0"
-        sha1="b7f0fc8f61ecadeb3695f0b9464755eee44374d4">
-        <dex dex="C:\Users\alfre\AndroidStudioProjects\BestRead\app\build\intermediates\pre-dexed\debug\commons-codec-1.6_6c164269a3e5e11545027c817ff67ac73393ffed.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\alfre\AndroidStudioProjects\BestRead\app\build\intermediates\exploded-aar\com.android.support\design\23.0.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.0"
-        sha1="8a5238e4bdcd6568b82db669d41817de670586b8">
-        <dex dex="C:\Users\alfre\AndroidStudioProjects\BestRead\app\build\intermediates\pre-dexed\debug\com.android.support-design-23.0.0_ba3c82c90bb964d0bb07b51497cc31a2c2aa744a.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\alfre\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.0.0\support-annotations-23.0.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.0"
-        sha1="990e7f98a7bad86a40b1f0bcfeb039023afd0839">
-        <dex dex="C:\Users\alfre\AndroidStudioProjects\BestRead\app\build\intermediates\pre-dexed\debug\support-annotations-23.0.0_e2ffcfd45b825d852017cc4830152f3aa83b4af6.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\alfre\.gradle\caches\modules-2\files-2.1\com.github.scribejava\scribejava-core\3.2.0\8a48c3373a17c5f69144edbf7211cb3b2498ddd4\scribejava-core-3.2.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.0"
-        sha1="8a48c3373a17c5f69144edbf7211cb3b2498ddd4">
-        <dex dex="C:\Users\alfre\AndroidStudioProjects\BestRead\app\build\intermediates\pre-dexed\debug\scribejava-core-3.2.0_938dd0ae989f97fae57535a282bdf30f90242258.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\alfre\AndroidStudioProjects\BestRead\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.0\jars\classes.jar"
+        jar="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.0/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.0"
         sha1="8413c27b45b7fe61dca4a98159f65e2cee215f5a">
-        <dex dex="C:\Users\alfre\AndroidStudioProjects\BestRead\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-23.0.0_7df20110e73cababea7ff6fb779d59ccb5a2cc06.jar" />
+        <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.0.0_e292e69a90916d73f7ecbadfb74a0343ad4e8c7d.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\alfre\AndroidStudioProjects\BestRead\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.0\jars\libs\internal_impl-23.0.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.0"
-        sha1="8bd336eeae661e8311330284897ee07f8ebaa297">
-        <dex dex="C:\Users\alfre\AndroidStudioProjects\BestRead\app\build\intermediates\pre-dexed\debug\internal_impl-23.0.0_4b3a5310b4330c4dad76faeea086dcdabe447deb.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\alfre\AndroidStudioProjects\BestRead\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.0\jars\classes.jar"
+        jar="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.0"
         sha1="4fcf0b1879f8caf497c073e1432d398e9e2988c1">
-        <dex dex="C:\Users\alfre\AndroidStudioProjects\BestRead\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-23.0.0_95897b0a7ad155cda81ec24b20ff224c4161a5fa.jar" />
+        <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.0.0_26d15bf28d3d6ce0893908c8e92ab19bfc531197.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\alfre\.gradle\caches\modules-2\files-2.1\com.github.scribejava\scribejava-apis\3.2.0\fe361e330f5a8f9c29ee31df2b4705d94c788e04\scribejava-apis-3.2.0.jar"
+        jar="/home/robert/Documents/android-workspace/BestRead/app/libs/scribe-1.3.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.0"
+        sha1="8a9f92023995a881e97622f82a2dd36d23dda06c">
+        <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/debug/scribe-1.3.0_fd176f51b8121e4a5a67d198f7e7d8ac812419e4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.0/jars/libs/internal_impl-23.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.0"
+        sha1="8bd336eeae661e8311330284897ee07f8ebaa297">
+        <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.0_3cdcc8bfa81d3959a9e65b5373312a7db261e0cf.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/exploded-aar/com.android.support/design/23.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.0"
+        sha1="8a5238e4bdcd6568b82db669d41817de670586b8">
+        <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/debug/com.android.support-design-23.0.0_04a9bcd33c3638677fe4d6534662b53367775c0c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/robert/.gradle/caches/modules-2/files-2.1/com.github.scribejava/scribejava-core/3.2.0/8a48c3373a17c5f69144edbf7211cb3b2498ddd4/scribejava-core-3.2.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.0"
+        sha1="8a48c3373a17c5f69144edbf7211cb3b2498ddd4">
+        <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/debug/scribejava-core-3.2.0_91f73f09a870855fa2bef0bf5134235a528052e4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/robert/.gradle/caches/modules-2/files-2.1/org.simpleframework/simple-xml/2.7.1/dd91fb744c2ff921407475cb29a1e3fee397d411/simple-xml-2.7.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.0"
+        sha1="dd91fb744c2ff921407475cb29a1e3fee397d411">
+        <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/debug/simple-xml-2.7.1_e0b092920795497cf31d77148e18f2adfb68d736.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/robert/Documents/android-workspace/BestRead/app/libs/commons-codec-1.6.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.0"
+        sha1="b7f0fc8f61ecadeb3695f0b9464755eee44374d4">
+        <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/debug/commons-codec-1.6_3a93ebd94bc8612658819951b4e583868ce995ef.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/robert/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.0/support-annotations-23.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.0"
+        sha1="990e7f98a7bad86a40b1f0bcfeb039023afd0839">
+        <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/debug/support-annotations-23.0.0_2805bad7c59ab78b17c310a678fd2e19f73107d2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/robert/.gradle/caches/modules-2/files-2.1/stax/stax/1.2.0/c434800de5e4bbe1822805be5fb1c32d6834f830/stax-1.2.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.0"
+        sha1="c434800de5e4bbe1822805be5fb1c32d6834f830">
+        <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/debug/stax-1.2.0_ccff03684dd89820e61f3eb65cd883335b2a8b68.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/robert/.gradle/caches/modules-2/files-2.1/com.github.scribejava/scribejava-apis/3.2.0/fe361e330f5a8f9c29ee31df2b4705d94c788e04/scribejava-apis-3.2.0.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.0"
         sha1="fe361e330f5a8f9c29ee31df2b4705d94c788e04">
-        <dex dex="C:\Users\alfre\AndroidStudioProjects\BestRead\app\build\intermediates\pre-dexed\debug\scribejava-apis-3.2.0_3470781b7bf68510633a06e068e98ad87c115d3a.jar" />
+        <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/debug/scribejava-apis-3.2.0_c087bae01bbe370e1e4cf80180fe79684663085f.jar" />
     </item>
 
 </items>
