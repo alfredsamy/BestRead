@@ -58,13 +58,26 @@
             android:layout_below="@+id/comment_button"
             android:layout_centerHorizontal="true" />
 
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:layout_marginTop="16dp"
+            android:id="@+id/edit_comment"
+            android:contentDescription="Comment Here"
+            android:layout_below="@+id/description"
+            android:layout_alignParentStart="true" />
+
         <Button
             android:text="comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/comment_button"
-            android:layout_below="@+id/description"
-            android:layout_centerHorizontal="true" />
+            android:layout_alignBaseline="@+id/edit_comment"
+            android:layout_alignBottom="@+id/edit_comment"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="29dp" />
 
     </RelativeLayout>
 </RelativeLayout>

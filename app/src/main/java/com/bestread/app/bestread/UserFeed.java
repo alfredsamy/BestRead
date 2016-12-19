@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -190,17 +191,24 @@ public class UserFeed extends AppCompatActivity {
             View.OnClickListener onclick_comment = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("Robert", "from onclick");
-                    Toast toast = Toast.makeText(getApplicationContext(), "Comment YAY !", Toast.LENGTH_LONG);
-                    toast.show();
+                    Log.d("Robert", "from comment button onclick");
+
+                    EditText text = (EditText) findViewById(R.id.edit_comment);
+                    String comment = text.getText().toString();
+
+                    if(! comment.isEmpty()){
+                        Toast toast = Toast.makeText(getApplicationContext(), comment, Toast.LENGTH_LONG);
+                        toast.show();
+                    }else{
+                        Toast toast = Toast.makeText(getApplicationContext(), "You Must Type Something First !", Toast.LENGTH_LONG);
+                        toast.show();
+                    }
                 }
             };
 
             Button comment_button = (Button) v.findViewById(R.id.comment_button);
-            if(comment_button != null)
-                comment_button.setOnClickListener(onclick_comment);
-            else
-                Log.d("Robert", "comment button is NULL");
+            comment_button.setOnClickListener(onclick_comment);
+
 
             return v;
         }
