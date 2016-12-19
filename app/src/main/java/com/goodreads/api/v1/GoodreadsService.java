@@ -320,6 +320,28 @@ public class GoodreadsService {
 		Log.d("Follow","FALSE");
 		return false;
 	}
+
+	public static boolean addToShelf(String shelfName,String bookId){
+		Uri.Builder builder = new Uri.Builder();
+		builder.scheme("http");
+		builder.authority("www.goodreads.com");
+		//builder.path("shelf");
+		builder.path("shelf/add_to_shelf.xml");
+		builder.appendQueryParameter("name", shelfName);
+		builder.appendQueryParameter("book_id", bookId);
+		Log.d("request was: " , builder.build().toString());
+		OAuthRequest addBookRequest = new OAuthRequest(Verb.POST, builder.build().toString());
+		if (isAuthenticated()) {
+			sService.signRequest(sAccessToken, addBookRequest);
+		}
+		Response response = addBookRequest.send();
+		Log.d("shelf add response: ", response.getBody());
+		if(response.isSuccessful()){
+			return true;
+		}
+		return false;
+	}
+
 	public static boolean unfollowAuthor(String authorId) throws Exception {
 		//don't know where to get AUTHOR_FOLLOWING_ID
 		//http://www.goodreads.com/author_followings/AUTHOR_FOLLOWING_ID?format=xml
