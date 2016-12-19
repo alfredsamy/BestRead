@@ -2,6 +2,7 @@ package com.bestread.app.bestread;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.StrictMode;
 import android.util.Log;
 import android.widget.Toast;
@@ -9,7 +10,10 @@ import android.widget.Toast;
 import com.goodreads.api.v1.GoodreadsService;
 import com.goodreads.api.v1.User;
 
+import org.scribe.model.OAuthRequest;
+import org.scribe.model.Response;
 import org.scribe.model.Token;
+import org.scribe.model.Verb;
 
 public class SessionManager {
 
@@ -116,4 +120,22 @@ public class SessionManager {
     }
 
 
+    public boolean postComment(String type, String id, String comment) {
+        try {
+            Uri.Builder builder = new Uri.Builder();
+            builder.scheme("http");
+            builder.authority("www.goodreads.com");
+            builder.path("comment.xml");
+            builder.appendQueryParameter("type", type);
+            builder.appendQueryParameter("id", id);
+            builder.appendQueryParameter("comment[body]", comment);
+
+            OAuthRequest getReviewRequest = new OAuthRequest(Verb.POST, builder.build().toString());
+            Response response = getReviewRequest.send();
+            return response.isSuccessful();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

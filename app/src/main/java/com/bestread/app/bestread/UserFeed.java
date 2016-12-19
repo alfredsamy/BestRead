@@ -143,7 +143,7 @@ public class UserFeed extends AppCompatActivity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             //Log.d("Feed ", position+"");
             Update update = objects.get(position);
 
@@ -196,9 +196,18 @@ public class UserFeed extends AppCompatActivity {
                     EditText text = (EditText) findViewById(R.id.edit_comment);
                     String comment = text.getText().toString();
 
+                    // post comment using the API
                     if(! comment.isEmpty()){
-                        Toast toast = Toast.makeText(getApplicationContext(), comment, Toast.LENGTH_LONG);
-                        toast.show();
+                        SessionManager session = new SessionManager();
+                        String update_id = "";
+                        if(!session.postComment(objects.get(position).getUpdateType(), update_id, comment)){
+                            Toast toast = Toast.makeText(getApplicationContext(), "Can't Post Comment", Toast.LENGTH_LONG);
+                            toast.show();
+                        }
+                        else{
+                            Toast toast = Toast.makeText(getApplicationContext(), "Posted Comment successfully", Toast.LENGTH_LONG);
+                            toast.show();
+                        }
                     }else{
                         Toast toast = Toast.makeText(getApplicationContext(), "You Must Type Something First !", Toast.LENGTH_LONG);
                         toast.show();
