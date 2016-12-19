@@ -123,7 +123,7 @@ public class SessionManager {
     public boolean postComment(String type, String id, String comment) {
         try {
             Uri.Builder builder = new Uri.Builder();
-            builder.scheme("http");
+            builder.scheme("https");
             builder.authority("www.goodreads.com");
             builder.path("comment.xml");
             builder.appendQueryParameter("type", type);

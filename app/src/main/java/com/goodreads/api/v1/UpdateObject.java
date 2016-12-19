@@ -24,11 +24,16 @@ package com.goodreads.api.v1;
 
 import java.io.Serializable;
 import android.sax.Element;
+import android.sax.EndTextElementListener;
+import android.util.Log;
+
+import com.extrafunctions.UpdateObjectID;
 
 public class UpdateObject implements Serializable
 {
 	private static final long serialVersionUID = 0L;
-	
+	private UpdateObjectID mID = new UpdateObjectID(); // added by robert
+
 	private Book mBook = new Book();
 	
 	public void clear()
@@ -47,11 +52,14 @@ public class UpdateObject implements Serializable
 	
 	public static UpdateObject appendListener(Element parentElement, int depth)
 	{
+
 		final Element updateObjectElement = parentElement.getChild("object");
 		final UpdateObject updateObject = new UpdateObject();
-		
+
 		updateObject.setBook(Book.appendListener(updateObjectElement, depth + 1));
-		
+		updateObject.setUpdateObjID(UpdateObjectID.appendListener(updateObjectElement, depth + 1));
+
+
 		return updateObject;
 	}
 
@@ -59,9 +67,18 @@ public class UpdateObject implements Serializable
 	{
 		mBook = book;
 	}
+	public void setUpdateObjID(UpdateObjectID id)
+	{
+		this.mID = id;
+	}
 
 	public Book getBook()
 	{
 		return mBook;
 	}
+	public UpdateObjectID getUpdateObjId()
+	{
+		return this.mID;
+	}
 }
+

@@ -199,8 +199,7 @@ public class UserFeed extends AppCompatActivity {
                     // post comment using the API
                     if(! comment.isEmpty()){
                         SessionManager session = new SessionManager();
-                        String update_id = "";
-                        if(!session.postComment(objects.get(position).getUpdateType(), update_id, comment)){
+                        if(!session.postComment(objects.get(position).getUpdateType(), objects.get(position).getUpdateObject().getUpdateObjId().getId(), comment)){
                             Toast toast = Toast.makeText(getApplicationContext(), "Can't Post Comment", Toast.LENGTH_LONG);
                             toast.show();
                         }
