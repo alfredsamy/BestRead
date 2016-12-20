@@ -60,7 +60,7 @@ public class GoodreadsService {
     private static String sApiKey;
     private static String sApiSecret;
 
-    private static Token sAccessToken;
+    public static Token sAccessToken;
 
     private static OAuthService sService;
     private static boolean sAuthenticated = false;
@@ -128,7 +128,7 @@ public class GoodreadsService {
 		while(sc.hasNext())
 			sb.append("\n" + sc.nextLine());
 		String to_use = sb.toString();
-//		Log.d("robert", to_use);
+//		Log.d("robert to_use", to_use);
 
 
 		final GoodreadsResponse response = new GoodreadsResponse();
@@ -161,18 +161,23 @@ public class GoodreadsService {
 		}
 
 		// robert : process update obj IDs
-		Pattern p = Pattern.compile("<update type=\"(\\w+)\">[\\s\\S]*?<object>\\s+?<\\w+>[\\s\\S]*?<id.*?>(.*?)</id>[\\s\\S]*?</object>[\\s\\S]*?</update>");
+//		Pattern update_p = Pattern.compile("<update.*?></update>");
+		Pattern p = Pattern.compile("<update type=\"(\\w+?)\">[\\s\\S]*?<object>[\\s\\S]*?<\\w+?>[\\s\\S]*?<id.*?>(\\w+?)</id>[\\s\\S]*?</update>");
 		Matcher m = p.matcher(to_use);
 
 		if(m.find()){
 			List<Update> updates = response.getUpdates();
-			updates.get(0).comment_UpdateType = m.group(1);
 			updates.get(0).comment_UpdateObjID = m.group(2);
+			updates.get(0).comment_UpdateType = m.group(1);
+
+			Log.d("robert", "found match: " + m.group());
+			Log.d("robert", "set update " + 0 + " with " + m.group(1) + " | " + m.group(2));
 
 			for(int i = 1; i < updates.size(); i++){
 				if(!m.find())break;
 				updates.get(i).comment_UpdateType = m.group(1);
 				updates.get(i).comment_UpdateObjID = m.group(2);
+				Log.d("robert", "found match: " + m.group());
 				Log.d("robert", "set update " + i + " with " + m.group(1) + " | " + m.group(2));
 			}
 		}

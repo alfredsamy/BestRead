@@ -124,10 +124,15 @@ public class SessionManager {
     public boolean postComment(String type, String id, String comment) {
 
         // adjust type first
-        if(type.equals("readstatus")) {
+        if(type.equals("readstatus"))
             type = "read_status";
-        }
-        
+        else if(type.startsWith("user"))
+            type = type.substring(0, 4) + "_" + type.substring(4);
+        else if(type.startsWith("review"))
+            type = type.substring(0, "review".length()) + "_" + type.substring("review".length());
+        else if(type.startsWith("author"))
+            type = type.substring(0, "author".length()) + "_" + type.substring("author".length());
+
         Log.d("robert", "trying to comment: " + type + " | " + id + " | " + comment);
 
         try {
@@ -140,7 +145,17 @@ public class SessionManager {
             builder.appendQueryParameter("comment[body]", comment);
 
             OAuthRequest getReviewRequest = new OAuthRequest(Verb.POST, builder.build().toString());
+            if (g.isAuthenticated())
+            {
+                g.getsService().signRequest(g.sAccessToken, getReviewRequest);
+            }else{
+                Log.d("robert", "ELSE IF");
+            }
+
             Response response = getReviewRequest.send();
+
+            Log.d("robert", response.getBody());
+
             return response.isSuccessful();
         } catch (Exception e) {
             e.printStackTrace();
