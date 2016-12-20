@@ -206,6 +206,7 @@ public class UserFeed extends AppCompatActivity {
 
     }
 
+    // added by robert
     public class MyButtonListener implements View.OnClickListener {
         final Update update;
 
@@ -218,9 +219,17 @@ public class UserFeed extends AppCompatActivity {
             EditText text = (EditText) findViewById(R.id.edit_comment);
             String comment = text.getText().toString();
 
+            // post comment using the API
             if(! comment.isEmpty()){
-                Toast toast = Toast.makeText(getApplicationContext(), "[" + comment + "] " + update.comment_UpdateObjID, Toast.LENGTH_LONG);
-                toast.show();
+                SessionManager session = new SessionManager();
+                if(!session.postComment(update.comment_UpdateType, update.comment_UpdateObjID, comment)){
+                    Toast toast = Toast.makeText(getApplicationContext(), "Can't Post Comment", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+                else{
+                    Toast toast = Toast.makeText(getApplicationContext(), "Posted Comment successfully", Toast.LENGTH_LONG);
+                    toast.show();
+                }
             }else{
                 Toast toast = Toast.makeText(getApplicationContext(), "You Must Type Something First !", Toast.LENGTH_LONG);
                 toast.show();

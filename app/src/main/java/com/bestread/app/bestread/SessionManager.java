@@ -2,6 +2,8 @@ package com.bestread.app.bestread;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.net.wifi.WifiConfiguration;
 import android.os.StrictMode;
 import android.util.Log;
 import android.widget.Toast;
@@ -9,7 +11,10 @@ import android.widget.Toast;
 import com.goodreads.api.v1.GoodreadsService;
 import com.goodreads.api.v1.User;
 
+import org.scribe.model.OAuthRequest;
+import org.scribe.model.Response;
 import org.scribe.model.Token;
+import org.scribe.model.Verb;
 
 public class SessionManager {
 
@@ -115,5 +120,31 @@ public class SessionManager {
         g.unAuthenticated();
     }
 
+    // added by robert
+    public boolean postComment(String type, String id, String comment) {
 
+        // adjust type first
+        if(type.equals("readstatus")) {
+            type = "read_status";
+        }
+        
+        Log.d("robert", "trying to comment: " + type + " | " + id + " | " + comment);
+
+        try {
+            Uri.Builder builder = new Uri.Builder();
+            builder.scheme("http");
+            builder.authority("www.goodreads.com");
+            builder.path("comment.xml");
+            builder.appendQueryParameter("type", type);
+            builder.appendQueryParameter("id", id);
+            builder.appendQueryParameter("comment[body]", comment);
+
+            OAuthRequest getReviewRequest = new OAuthRequest(Verb.POST, builder.build().toString());
+            Response response = getReviewRequest.send();
+            return response.isSuccessful();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
