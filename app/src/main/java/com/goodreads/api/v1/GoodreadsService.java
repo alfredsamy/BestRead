@@ -26,6 +26,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.model.OAuthRequest;
@@ -37,7 +40,9 @@ import org.scribe.oauth.OAuthService;
 import org.xml.sax.SAXException;
 
 import android.net.Uri;
+import android.net.wifi.WifiConfiguration;
 import android.sax.RootElement;
+import android.util.StringBuilderPrinter;
 import android.util.Xml;
 import android.util.Log;
 
@@ -117,6 +122,15 @@ public class GoodreadsService {
 
 	public static GoodreadsResponse parse(InputStream inputStream) throws IOException, SAXException
 	{
+		StringBuilder sb = new StringBuilder();
+		Scanner sc = new Scanner(inputStream);
+		sb.append(sc.nextLine());
+		while(sc.hasNext())
+			sb.append("\n" + sc.nextLine());
+		String to_use = sb.toString();
+//		Log.d("robert", to_use);
+
+
 		final GoodreadsResponse response = new GoodreadsResponse();
 
 		RootElement root = new RootElement("GoodreadsResponse");
@@ -138,12 +152,31 @@ public class GoodreadsService {
 		//response.setmNotifications(Notification.appendArrayListener(root,0));
 		try
 		{
-			Xml.parse(inputStream, Xml.Encoding.UTF_8, root.getContentHandler());
+//			Xml.parse(inputStream, Xml.Encoding.UTF_8, root.getContentHandler());
+			Xml.parse(to_use, root.getContentHandler());
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
+
+		// robert : process update obj IDs
+		Pattern p = Pattern.compile("<update type=\"(\\w+)\">[\\s\\S]*?<object>\\s+?<\\w+>[\\s\\S]*?<id.*?>(.*?)</id>[\\s\\S]*?</object>[\\s\\S]*?</update>");
+		Matcher m = p.matcher(to_use);
+
+		if(m.find()){
+			List<Update> updates = response.getUpdates();
+			updates.get(0).comment_UpdateType = m.group(1);
+			updates.get(0).comment_UpdateObjID = m.group(2);
+
+			for(int i = 1; i < updates.size(); i++){
+				if(!m.find())break;
+				updates.get(i).comment_UpdateType = m.group(1);
+				updates.get(i).comment_UpdateObjID = m.group(2);
+				Log.d("robert", "set update " + i + " with " + m.group(1) + " | " + m.group(2));
+			}
+		}
+
 		return response;
 	}
 

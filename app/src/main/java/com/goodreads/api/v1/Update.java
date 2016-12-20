@@ -50,6 +50,10 @@ public class Update implements Serializable
 	private Actor mActor = new Actor();
 	private Action mAction = new Action();
 	private UpdateObject mUpdateObject = new UpdateObject();
+
+	//added by robert
+	public String comment_UpdateType;
+	public String comment_UpdateObjID;
 	
 	public void clear()
 	{

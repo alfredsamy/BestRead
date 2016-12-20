@@ -98,14 +98,7 @@ public class UserFeed extends AppCompatActivity {
         GoodreadsService g = new GoodreadsService();
 
         List<Update> updates = g.getFriendsUpdates();
-        Log.d("Feed", updates.size() + "");
-        /*
-        for (int i=0; i<updates.size();i++) {
-            Log.d("Feed",i+"");
-            Log.d("Feed",updates.get(i).getUpdateType());
-            Log.d("Feed",updates.get(i).getActionText());
-        }
-        */
+
         ArrayAdapter<Update> feedArrayAdaptor = new FeedAdaptor(this, 0, updates);
 
         ListView listView = (ListView) findViewById(R.id.feedList);
