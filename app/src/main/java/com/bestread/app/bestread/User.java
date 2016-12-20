@@ -60,6 +60,25 @@ public class User extends AppCompatActivity {
             Log.d("DEBUG", "Got about:" + user.getAbout());
             userAboutView.setText(user.getAbout());
 
+
+            // get and set friends count in view
+            TextView friends_count_textview = (TextView) findViewById(R.id.friends_count);
+            friends_count_textview.setText("" + user.getFriendsCount());
+
+            // get and set reviews count in view
+            TextView reviews_count_textview = (TextView) findViewById(R.id.reviews_count);
+            reviews_count_textview.setText("" + user.getReviewsCount());
+
+
+            // get and set last active in view
+            TextView last_active_textview = (TextView) findViewById(R.id.last_active);
+            last_active_textview.setText("" + user.getLastActive());
+
+
+            // get and set joined in view
+            TextView joined_textview = (TextView) findViewById(R.id.joined);
+            joined_textview.setText("" + user.getJoined());
+
         } catch (Exception e) {
             Toast toast = Toast.makeText(getApplicationContext(), "Error Loading Profile", Toast.LENGTH_SHORT);
             toast.show();
