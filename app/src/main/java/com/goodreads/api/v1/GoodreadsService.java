@@ -355,6 +355,28 @@ public class GoodreadsService {
 		Log.d("Follow","FALSE");
 		return false;
 	}
+
+	public static boolean addToShelf(String shelfName,String bookId){
+		Uri.Builder builder = new Uri.Builder();
+		builder.scheme("http");
+		builder.authority("www.goodreads.com");
+		//builder.path("shelf");
+		builder.path("shelf/add_to_shelf.xml");
+		builder.appendQueryParameter("name", shelfName);
+		builder.appendQueryParameter("book_id", bookId);
+		Log.d("request was: " , builder.build().toString());
+		OAuthRequest addBookRequest = new OAuthRequest(Verb.POST, builder.build().toString());
+		if (isAuthenticated()) {
+			sService.signRequest(sAccessToken, addBookRequest);
+		}
+		Response response = addBookRequest.send();
+		Log.d("shelf add response: ", response.getBody());
+		if(response.isSuccessful()){
+			return true;
+		}
+		return false;
+	}
+
 	public static boolean unfollowAuthor(String authorId) throws Exception {
 		//don't know where to get AUTHOR_FOLLOWING_ID
 		//http://www.goodreads.com/author_followings/AUTHOR_FOLLOWING_ID?format=xml
@@ -584,40 +606,35 @@ public class GoodreadsService {
 // 		}
 // 	}
 // 
-// 	public static void postReview(
-// 			String bookId, 
-// 			String review,
-// 			String dateRead,
-// 			List<String> shelves,
-// 			int rating) throws Exception
-// 	{
-// 		if (shelves.size() == 0)
-// 		{
-// 			throw new Exception("Select at least one shelf.");
-// 		}
-// 		if (rating < 1 || rating > 5)
-// 		{
-// 			throw new Exception("Review rating must be 1-5 stars.");
-// 		}
-// 		HttpClient httpClient = new DefaultHttpClient();
-// 		HttpPost post = new HttpPost("http://www.goodreads.com/review.xml");
-// 		
-// 		List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-// 		parameters.add(new BasicNameValuePair("shelf", shelves.get(0)));
-// 		parameters.add(new BasicNameValuePair("review[review]", review));
-// 		parameters.add(new BasicNameValuePair("review[read_at]", dateRead));
-// 		parameters.add(new BasicNameValuePair("book_id", bookId));
-// 		parameters.add(new BasicNameValuePair("review[rating]", Integer.toString(rating)));
-// 		post.setEntity(new UrlEncodedFormEntity(parameters));
-// 		sService.signRequest(sAccessToken, post);
-// 		
-// 		HttpResponse response = httpClient.execute(post);
-// 		if (response.getStatusLine().getStatusCode() != 201)
-// 		{
-// 			throw new Exception(response.getStatusLine().toString());
-// 		}
-// 	}
-// 	
+ 	public static boolean postReview(
+ 			String bookId,
+ 			String review,
+ 			int rating) throws Exception
+ 	{
+ 		if (rating < 1 || rating > 5)
+ 		{
+ 			throw new Exception("Review rating must be 1-5 stars.");
+ 		}
+		Uri.Builder builder = new Uri.Builder();
+		builder.scheme("http");
+		builder.authority("www.goodreads.com");
+		builder.path("review.xml");
+		builder.appendQueryParameter("book_id", bookId);
+		builder.appendQueryParameter("review[rating]",Integer.toString(rating));
+		builder.appendQueryParameter("review[review]", review);
+
+		OAuthRequest getReviewRequest = new OAuthRequest(Verb.POST, builder.build().toString());
+		if (isAuthenticated()) {
+			sService.signRequest(sAccessToken, getReviewRequest);
+		}
+		Response response = getReviewRequest.send();
+		Log.d("post review: ", response.getBody());
+		if(response.isSuccessful()){
+			return true;
+		}
+		return false;
+ 	}
+
     public static boolean postStatusUpdate(String comment) throws Exception {
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("http");

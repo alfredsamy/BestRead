@@ -31,8 +31,9 @@
         <activity android:name=".Search" />
         <activity
             android:name=".AuthorActivity"
-            android:label="@string/title_activity_author"></activity>
-        <activity android:name=".BooksActivity"></activity>
+            android:label="@string/title_activity_author" />
+        <activity android:name=".BooksActivity" />
+        <activity android:name=".ReviewActivity"></activity>
     </application>
 
 </manifest>

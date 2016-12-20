@@ -1,25 +1,37 @@
 package com.bestread.app.bestread;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.goodreads.api.v1.Book;
-import com.goodreads.api.v1.GoodreadsService;
+import com.goodreads.api.v1.*;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.bestread.app.bestread.SessionManager.g;
 
 public class BooksActivity extends AppCompatActivity {
+
+    public String bookMId;
+    public GoodreadsService g;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +39,7 @@ public class BooksActivity extends AppCompatActivity {
         setContentView(R.layout.activity_books);
         g= new GoodreadsService();
         String bookId = getIntent().getStringExtra("ID");
+        this.bookMId = bookId;
         try{
             com.extrafunctions.Book book = g.getReviewsForBook(bookId);
             Log.d("book's image: ",book.getImageUrl());
@@ -76,6 +89,56 @@ public class BooksActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void goToReview(View view){
+        Intent reviewIntent = new Intent(this, ReviewActivity.class);
+        reviewIntent.putExtra("ID",this.bookMId);
+        startActivity(reviewIntent);
+    }
+
+    public void addToBookshelf(View view) throws Exception {
+        Log.d("0   :","reached here");
+        com.goodreads.api.v1.User user = g.getAuthorizedUser();
+        String userId = user.getId();
+        Log.d("1   :","reached here");
+        List<UserShelf> shelves = g.getShelvesForUser(userId);
+        ArrayList<String> shelvesNames = new ArrayList<String>();
+        for(UserShelf shelf:shelves){
+            shelvesNames.add(shelf.getName());
+        }
+        Log.d("2   :","reached here");
+        final String names[] =shelvesNames.toArray(new String[shelvesNames.size()]);
+        AlertDialog alertDialog = new AlertDialog.Builder(BooksActivity.this).create();
+        LayoutInflater inflater = getLayoutInflater();
+        Log.d("3   :","reached here");
+        View convertView = (View) inflater.inflate(R.layout.custom, null);
+        alertDialog.setView(convertView);
+        alertDialog.setTitle("Shelves");
+        final ListView lv = (ListView) convertView.findViewById(R.id.listView1);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,names);
+        lv.setAdapter(adapter);
+        setClickListener(alertDialog,lv,this.bookMId,names);
+        alertDialog.show();
+    }
+
+    private void setClickListener(final AlertDialog alertDialog,
+                                  final ListView listView,final String bookId,final String[] names){
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,int position, long id)
+            {
+                boolean response = g.addToShelf(names[position], bookId);
+                if(response){
+                    Toast toast = Toast.makeText(getApplicationContext(), "Added to bookshelf", Toast.LENGTH_SHORT);
+                    toast.show();
+                    alertDialog.dismiss();
+                }
+                else{
+                    Toast toast = Toast.makeText(getApplicationContext(), "Failed to add to bookshelf", Toast.LENGTH_SHORT);
+                    toast.show();
+                    alertDialog.dismiss();
+                }
+            }});
     }
 
     public Bitmap loadBitmap(String url) {
