@@ -118,6 +118,9 @@ public class UserFeed extends AppCompatActivity {
         List<Update> objects;
         Bitmap aImg[];
         Bitmap bImg[];
+        // added by robert
+        Button comment_button[];
+
 
         class ViewHolder {
             public ImageView actorImg;
@@ -133,6 +136,7 @@ public class UserFeed extends AppCompatActivity {
             this.objects = objects;
             aImg = new Bitmap[objects.size()];
             bImg = new Bitmap[objects.size()];
+            comment_button = new Button[objects.size()];
         }
 
         @Override
@@ -181,26 +185,8 @@ public class UserFeed extends AppCompatActivity {
             }
 
             // comment button
-            View.OnClickListener onclick_comment = new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.d("Robert", "from comment button onclick");
-
-                    EditText text = (EditText) findViewById(R.id.edit_comment);
-                    String comment = text.getText().toString();
-
-                    if(! comment.isEmpty()){
-                        Toast toast = Toast.makeText(getApplicationContext(), comment, Toast.LENGTH_LONG);
-                        toast.show();
-                    }else{
-                        Toast toast = Toast.makeText(getApplicationContext(), "You Must Type Something First !", Toast.LENGTH_LONG);
-                        toast.show();
-                    }
-                }
-            };
-
-            Button comment_button = (Button) v.findViewById(R.id.comment_button);
-            comment_button.setOnClickListener(onclick_comment);
+            comment_button[position] = (Button) v.findViewById(R.id.comment_button);
+            comment_button[position].setOnClickListener(new MyButtonListener(objects.get(position)));
 
 
             return v;
@@ -218,5 +204,27 @@ public class UserFeed extends AppCompatActivity {
             return mIcon11;
         }
 
+    }
+
+    public class MyButtonListener implements View.OnClickListener {
+        final Update update;
+
+        MyButtonListener(Update up){
+            this.update = up;
+        }
+
+        @Override
+        public void onClick(View view) {
+            EditText text = (EditText) findViewById(R.id.edit_comment);
+            String comment = text.getText().toString();
+
+            if(! comment.isEmpty()){
+                Toast toast = Toast.makeText(getApplicationContext(), "[" + comment + "] " + update.comment_UpdateObjID, Toast.LENGTH_LONG);
+                toast.show();
+            }else{
+                Toast toast = Toast.makeText(getApplicationContext(), "You Must Type Something First !", Toast.LENGTH_LONG);
+                toast.show();
+            }
+        }
     }
 }
