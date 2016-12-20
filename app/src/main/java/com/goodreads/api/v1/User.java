@@ -477,7 +477,7 @@ public class User implements Serializable
 		mUpdates.clear();
 	}
 
-	public void fillInfo(){
+	public User getCorrectUser(){
 		Uri.Builder builder = new Uri.Builder();
 		builder.scheme("http");
 		builder.authority("www.goodreads.com");
@@ -493,15 +493,13 @@ public class User implements Serializable
 			Log.d("robert", "begin parsing response ... ");
 			GoodreadsResponse responseData = GoodreadsService.parse(response.getStream());
 			Log.d("robert", "parsed response");
-			User u = responseData.getUser();
-
-			mName = u.getName();
-			mImageUrl = u.getImageUrl();
-			mAbout = u.getAbout();
+			return responseData.getUser();
 
 		}catch (Exception e){
 			Log.d("DEBUG", "Can't Fill userdata");
 			//e.printStackTrace();
 		}
+
+		return null;
 	}
 }

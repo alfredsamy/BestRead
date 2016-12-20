@@ -32,8 +32,13 @@ public class User extends AppCompatActivity {
     private void DisplayUserProfile() {
         GoodreadsService g = new GoodreadsService();
         try {
-            com.goodreads.api.v1.User user = g.getAuthorizedUser();
-            user.fillInfo();
+            com.goodreads.api.v1.User user = g.getAuthorizedUser().getCorrectUser();
+            if(user == null){
+                Toast toast = Toast.makeText(getApplicationContext(), "Error Loading Profile", Toast.LENGTH_SHORT);
+                toast.show();
+                finish();
+            }
+
 
             // get user profile picture
             String urldisplay = user.getImageUrl();
@@ -58,6 +63,7 @@ public class User extends AppCompatActivity {
         } catch (Exception e) {
             Toast toast = Toast.makeText(getApplicationContext(), "Error Loading Profile", Toast.LENGTH_SHORT);
             toast.show();
+            finish();
         }
     }
 }
