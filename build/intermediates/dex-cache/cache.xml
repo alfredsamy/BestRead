@@ -12,12 +12,30 @@
     </item>
     <item
         is-multidex="false"
+        jar="/home/robert/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.0"
+        sha1="42a25dc3219429f0e5d060061f71acb49bf010a0">
+        <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/androidTest/debug/hamcrest-core-1.3_f2d82c7e0da20dc582d1029a720b8846833a260c.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.0"
         sha1="4fcf0b1879f8caf497c073e1432d398e9e2988c1">
         <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.0.0_26d15bf28d3d6ce0893908c8e92ab19bfc531197.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/robert/.gradle/caches/modules-2/files-2.1/org.mockito/mockito-core/1.10.19/e8546f5bef4e061d8dd73895b4e8f40e3fe6effe/mockito-core-1.10.19.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.0"
+        sha1="e8546f5bef4e061d8dd73895b4e8f40e3fe6effe">
+        <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/androidTest/debug/mockito-core-1.10.19_e258255e40db947c488592388c185c53560326e0.jar" />
     </item>
     <item
         is-multidex="false"
@@ -36,6 +54,15 @@
         revision="23.0.0"
         sha1="8bd336eeae661e8311330284897ee07f8ebaa297">
         <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.0_3cdcc8bfa81d3959a9e65b5373312a7db261e0cf.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/robert/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/2973d150c0dc1fefe998f834810d68f278ea58ec/junit-4.12.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.0"
+        sha1="2973d150c0dc1fefe998f834810d68f278ea58ec">
+        <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/androidTest/debug/junit-4.12_12938c160e4d395685169a2b86a7a0363a787797.jar" />
     </item>
     <item
         is-multidex="false"
@@ -72,6 +99,15 @@
         revision="23.0.0"
         sha1="b7f0fc8f61ecadeb3695f0b9464755eee44374d4">
         <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/debug/commons-codec-1.6_3a93ebd94bc8612658819951b4e583868ce995ef.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/robert/.gradle/caches/modules-2/files-2.1/org.objenesis/objenesis/2.1/87c0ea803b69252868d09308b4618f766f135a96/objenesis-2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.0"
+        sha1="87c0ea803b69252868d09308b4618f766f135a96">
+        <dex dex="/home/robert/Documents/android-workspace/BestRead/app/build/intermediates/pre-dexed/androidTest/debug/objenesis-2.1_1f4b6b2d57d26e0811a51ebcfa591498d94a4df2.jar" />
     </item>
     <item
         is-multidex="false"

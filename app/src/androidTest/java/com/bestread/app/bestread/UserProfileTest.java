@@ -17,14 +17,20 @@ public class UserProfileTest extends TestCase {
     }
 
     public void testUserInfo() throws Exception {
-        com.goodreads.api.v1.User user = session.g.getAuthorizedUser();
-        user.fillInfo();
+        com.goodreads.api.v1.User user = session.g.getAuthorizedUser().getCorrectUser();
 
         assertNotNull(user);
 
         assertEquals("Fail", user.getName(), "Alfred Samy");
 
         assertEquals("Fail", user.getAbout(), "About ME");
+
+        assertEquals("Fail", user.getFriendsCount(), 2);
+
+        assertNotNull(user.getLastActive());
+
+        assertEquals("Fail", user.getJoined(), "12/2016");
+
     }
 
 
