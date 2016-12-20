@@ -19,7 +19,7 @@ import org.scribe.model.Verb;
 
 public class SessionManager {
 
-    static GoodreadsService g;
+    public static GoodreadsService g;
     private static Token requestToken;
     private static Token accessToken;
     private static User currentUser;
@@ -122,11 +122,11 @@ public class SessionManager {
     }
 
     // added by robert
-    public boolean postComment(Update update, String comment) {
-        try {
-            String type = update.comment_UpdateType;
-            String id = update.comment_UpdateObjID;
+    public boolean postComment(String type, String id, String comment) {
+        if(comment.isEmpty())
+            return false;
 
+        try {
             // adjust type first
             if (type.equals("readstatus"))
                 type = "read_status";
