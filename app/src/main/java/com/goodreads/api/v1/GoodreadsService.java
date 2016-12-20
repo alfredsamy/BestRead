@@ -161,25 +161,22 @@ public class GoodreadsService {
 		}
 
 		// robert : process update obj IDs
-//		Pattern update_p = Pattern.compile("<update.*?></update>");
+		Pattern update_p = Pattern.compile("<update type=[\\s\\S]*?</update>");
+		Matcher update_m = update_p.matcher(to_use);
+
 		Pattern p = Pattern.compile("<update type=\"(\\w+?)\">[\\s\\S]*?<object>[\\s\\S]*?<\\w+?>[\\s\\S]*?<id.*?>(\\w+?)</id>[\\s\\S]*?</update>");
-		Matcher m = p.matcher(to_use);
+		List<Update> updates = response.getUpdates();
+		int next_i = -1;
+		while(update_m.find()){
+			next_i ++;
+			Matcher m = p.matcher(update_m.group());
+			if(!m.find())
+				continue;
+			updates.get(next_i).comment_UpdateType = m.group(1);
+			updates.get(next_i).comment_UpdateObjID = m.group(2);
 
-		if(m.find()){
-			List<Update> updates = response.getUpdates();
-			updates.get(0).comment_UpdateObjID = m.group(2);
-			updates.get(0).comment_UpdateType = m.group(1);
-
-			Log.d("robert", "found match: " + m.group());
-			Log.d("robert", "set update " + 0 + " with " + m.group(1) + " | " + m.group(2));
-
-			for(int i = 1; i < updates.size(); i++){
-				if(!m.find())break;
-				updates.get(i).comment_UpdateType = m.group(1);
-				updates.get(i).comment_UpdateObjID = m.group(2);
-				Log.d("robert", "found match: " + m.group());
-				Log.d("robert", "set update " + i + " with " + m.group(1) + " | " + m.group(2));
-			}
+			Log.d("robert", "found match: " + update_m.group());
+			Log.d("robert", "assigned: " + m.group(1) + " | " + m.group(2));
 		}
 
 		return response;

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.goodreads.api.v1.GoodreadsService;
+import com.goodreads.api.v1.Update;
 import com.goodreads.api.v1.User;
 
 import org.scribe.model.OAuthRequest;
@@ -121,21 +122,24 @@ public class SessionManager {
     }
 
     // added by robert
-    public boolean postComment(String type, String id, String comment) {
-
-        // adjust type first
-        if(type.equals("readstatus"))
-            type = "read_status";
-        else if(type.startsWith("user"))
-            type = type.substring(0, 4) + "_" + type.substring(4);
-        else if(type.startsWith("review"))
-            type = type.substring(0, "review".length()) + "_" + type.substring("review".length());
-        else if(type.startsWith("author"))
-            type = type.substring(0, "author".length()) + "_" + type.substring("author".length());
-
-        Log.d("robert", "trying to comment: " + type + " | " + id + " | " + comment);
-
+    public boolean postComment(Update update, String comment) {
         try {
+            String type = update.comment_UpdateType;
+            String id = update.comment_UpdateObjID;
+
+            // adjust type first
+            if (type.equals("readstatus"))
+                type = "read_status";
+            else if (type.startsWith("user"))
+                type = type.substring(0, 4) + "_" + type.substring(4);
+            else if (type.startsWith("review"))
+                type = type.substring(0, "review".length()) + "_" + type.substring("review".length());
+            else if (type.startsWith("author"))
+                type = type.substring(0, "author".length()) + "_" + type.substring("author".length());
+
+            Log.d("robert", "trying to comment: " + type + " | " + id + " | " + comment);
+
+
             Uri.Builder builder = new Uri.Builder();
             builder.scheme("http");
             builder.authority("www.goodreads.com");
@@ -145,10 +149,9 @@ public class SessionManager {
             builder.appendQueryParameter("comment[body]", comment);
 
             OAuthRequest getReviewRequest = new OAuthRequest(Verb.POST, builder.build().toString());
-            if (g.isAuthenticated())
-            {
+            if (g.isAuthenticated()) {
                 g.getsService().signRequest(g.sAccessToken, getReviewRequest);
-            }else{
+            } else {
                 Log.d("robert", "ELSE IF");
             }
 
