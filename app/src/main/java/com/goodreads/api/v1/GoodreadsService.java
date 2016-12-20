@@ -166,8 +166,9 @@ public class GoodreadsService {
 
 		Pattern p = Pattern.compile("<update type=\"(\\w+?)\">[\\s\\S]*?<object>[\\s\\S]*?<\\w+?>[\\s\\S]*?<id.*?>(\\w+?)</id>[\\s\\S]*?</update>");
 		List<Update> updates = response.getUpdates();
+
 		int next_i = -1;
-		while(update_m.find()){
+		while(update_m.find() && !updates.isEmpty()){
 			next_i ++;
 			Matcher m = p.matcher(update_m.group());
 			if(!m.find())

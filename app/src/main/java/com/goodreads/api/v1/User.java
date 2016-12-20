@@ -484,12 +484,15 @@ public class User implements Serializable
 		builder.path("user/show/" + getId() + ".xml");
 		builder.appendQueryParameter("key", GoodreadsService.getSAPIKey());
 
-		OAuthRequest getUserInfoRequest = new OAuthRequest(Verb.GET, builder.build().toString());
-		GoodreadsService.getsService().signRequest(GoodreadsService.getsAccessToken(), getUserInfoRequest);
-		Response response = getUserInfoRequest.send();
 
 		try{
+			OAuthRequest getUserInfoRequest = new OAuthRequest(Verb.GET, builder.build().toString());
+			GoodreadsService.getsService().signRequest(GoodreadsService.getsAccessToken(), getUserInfoRequest);
+			Response response = getUserInfoRequest.send();
+
+			Log.d("robert", "begin parsing response ... ");
 			GoodreadsResponse responseData = GoodreadsService.parse(response.getStream());
+			Log.d("robert", "parsed response");
 			User u = responseData.getUser();
 
 			mName = u.getName();
