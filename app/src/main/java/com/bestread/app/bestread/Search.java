@@ -186,7 +186,7 @@ public class Search extends AppCompatActivity {
             LayoutInflater inflater = (LayoutInflater)
                     context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
-            View v = inflater.inflate(R.layout.feed_item, null);
+            View v = inflater.inflate(R.layout.search_item, null);
 
             Bitmap book = loadBitmap(work.getBestBook().getImageUrl());
 
