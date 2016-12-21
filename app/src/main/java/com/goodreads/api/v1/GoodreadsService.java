@@ -89,7 +89,8 @@ public class GoodreadsService {
                 .apiSecret(apiSecret)
                 .callback(CALLBACK)
                 .build();
-    }
+    			Log.d("Secret is",apiSecret);
+	}
 
     /**
      * Returns a request token
